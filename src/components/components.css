@@ -34,3 +34,9 @@
     transform: translateX(-100%); /* Start off-screen to the left */
     animation: slideIn 0.5s forwards;
 }
+#home, #offers{
+  padding-top:60px;
+}
+html, body{
+  scroll-behavior: smooth;
+}

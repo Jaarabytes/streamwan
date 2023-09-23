@@ -2,13 +2,12 @@ import React from "react";
 import "./components.css";
 import { useInView } from 'react-intersection-observer';
 
-const {ref, inView} = useInView({
+function Offers() {
+  const {ref, inView} = useInView({
     rootMargin:"-300px 0px -300px 0px",
     triggerOnce:true
-});
+  });
 
-
-function Offers() {
   const items = [
     {
       name: "Basic",
@@ -75,9 +74,9 @@ function Offers() {
 
 //   FIX THE REACT INTERSECTION OBSERVER
   return (
-    <div className="grid grid-cols-4 gap-4 px-5 min-h-full" ref={ref}>
+    <div className="grid md:grid-cols-4 gap-4 px-5 min-h-full sm:grid-cols-2 grid-cols-1" ref={ref} id="offers">
       {items.map((elem) => (
-        <div key={elem.name} className={`rounded-lg border-gray-800 text-center shadow-lg py-5 ${inView ? 'kuu-seen' : "kuu"}`}>
+        <div key={elem.name} className={`rounded-lg border-gray-800 text-center shadow-lg py-5 kuu ${inView ? 'kuu-seen' : ""}`}>
           <p className={`text-white text-2xl ${elem.name === 'Basic' ? "bg-green-700" : elem.name === "Family" ? "bg-pink-500" : elem.name === "Bronze" ? "bg-amber-500" : "bg-blue-900"}`}>{elem.name}</p>
           <p className="text-green-900 bg-white font-bold text-xl">{elem.speed}</p>
           <ul key={elem.name} className="h-80">
