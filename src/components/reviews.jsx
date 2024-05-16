@@ -19,7 +19,7 @@ export default function Reviews () {
 
     return (
         <>
-        <div>
+        <div className='my-48'>
             <div className='text-center text-green-900 my-5'>
                 <p className='text-2xl'>For <span className='font-bold'>speed</span>, <span className='font-bold'>efficiency</span> and a <span className='font-bold'>happy environment</span></p>
                 <br></br>

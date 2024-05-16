@@ -35,7 +35,7 @@ export default function Offers() {
         "Fast web browsing",
         "SD Movie & Music Streaming",
         "SD TV programming",
-      ],
+      ]
     },
     {
       name: "Bronze",

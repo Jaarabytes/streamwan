@@ -3,7 +3,7 @@ import React from "react";
 export default function Intro(){
     return(
         <>
-        <div className="xl:flex block min-h-full my-5 px-5" id="home">
+        <div className="xl:flex block min-h-full my-16 px-5" id="home">
             {/* <div className="relative inline-block xl:w-1/2 w-full overflow-hidden" id="Home"> */}
                 {/* <img src="https://jomeista.github.io/streamwan/img/Homefibre.png" /> */}
             {/* </div> */}
