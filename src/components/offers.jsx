@@ -75,7 +75,7 @@ export default function Offers() {
 //   FIX THE REACT INTERSECTION OBSERVER
 // I am fixing right now
   return (
-    <div className="grid md:grid-cols-4 gap-4 px-5 min-h-full sm:grid-cols-2 grid-cols-1" ref={ref} id="offers">
+    <div className="grid md:grid-cols-4 gap-4 px-5 min-h-full sm:grid-cols-2 grid-cols-1 mb-10" ref={ref} id="offers">
       {items.map((elem) => (
         <div key={elem.name} className={`rounded-lg border-gray-800 text-center shadow-lg py-5 kuu ${inView ? 'kuu-seen' : ""}`}>
           <p className={`text-white text-2xl ${elem.name === 'Basic' ? "bg-green-700" : elem.name === "Family" ? "bg-pink-500" : elem.name === "Bronze" ? "bg-amber-500" : "bg-blue-900"}`}>{elem.name}</p>
@@ -86,10 +86,10 @@ export default function Offers() {
             ))}
           </ul>
           <hr />
-          <p>Sharing: {elem.price.sharing}</p>
-          <p>Dedicated: {elem.price.dedicated}</p>
-          <hr />
-          <button className={`my-2 p-2 juu text-white text-2xl ${elem.name === 'Basic' ? "bg-green-700" : elem.name === "Family" ? "bg-pink-500" : elem.name === "Bronze" ? "bg-amber-500" : "bg-blue-900"}`}>Purchase</button>
+          <p className="mt-5">Sharing: {elem.price.sharing}</p>
+          <p className="mb-5">Dedicated: {elem.price.dedicated}</p>
+          <hr className="my-5" />
+          <button className={`my-2 px-5 py-3 rounded-lg text-white text-2xl ${elem.name === 'Basic' ? "bg-green-700" : elem.name === "Family" ? "bg-pink-500" : elem.name === "Bronze" ? "bg-amber-500" : "bg-blue-900"}`}>Purchase</button>
         </div>
       ))}
     </div>

@@ -15,7 +15,8 @@ export default function App() {
       <Marketing />
       <Reviews />
       <Offers />
-      <FAQs />
+      {/* FAQs component should have its own page, Yes we are going full stack */}
+      {/* <FAQs /> */}
       <Footer />
     </>
   )

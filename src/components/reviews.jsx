@@ -19,13 +19,15 @@ export default function Reviews () {
 
     return (
         <>
-        <div className='my-48'>
+        <div className='sm:my-48 my-20'>
+            <hr className='text-green-900' />
             <div className='text-center text-green-900 my-5'>
                 <p className='text-2xl'>For <span className='font-bold'>speed</span>, <span className='font-bold'>efficiency</span> and a <span className='font-bold'>happy environment</span></p>
                 <br></br>
-                <p className='text-lg'>StreamWan is trusted all over Kenya and beyond.</p>
+                <p className='text-lg px-5'>StreamWan is trusted all over Kenya and beyond.</p>
             </div>
-            <div className='flex justify-center text-green-900 mt-10 px-[20%]'
+            <hr className='text-green-900' />
+            <div className='sm:flex sm:justify-center text-green-900 mt-10 sm:px-[20%]'
             style={{
 
             }}
@@ -35,7 +37,7 @@ export default function Reviews () {
                 className='mx-5 p-5'
                 key={index}
                 >
-                    <p className='text-lg text-green-950'>{elem.review}</p>
+                    <p className='sm:text-lg text-xl text-green-950'>{elem.review}</p>
                     <br></br>
                     <h4 className=''>{elem.name}</h4>
                 </div>
