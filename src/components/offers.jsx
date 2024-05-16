@@ -2,7 +2,7 @@ import React from "react";
 import "./components.css";
 import { useInView } from 'react-intersection-observer';
 
-function Offers() {
+export default function Offers() {
   const {ref, inView} = useInView({
     rootMargin:"-300px 0px -300px 0px",
     triggerOnce:true
@@ -73,6 +73,7 @@ function Offers() {
 
 
 //   FIX THE REACT INTERSECTION OBSERVER
+// I am fixing right now
   return (
     <div className="grid md:grid-cols-4 gap-4 px-5 min-h-full sm:grid-cols-2 grid-cols-1" ref={ref} id="offers">
       {items.map((elem) => (
@@ -95,4 +96,3 @@ function Offers() {
   );
 }
 
-export default Offers;
