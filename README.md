@@ -1,8 +1,9 @@
-# React + Vite
+# StreamWan
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple project that uses React ,Tailwind CSS and ViteJS.
 
-Currently, two official plugins are available:
+We are a Green Internet Service Provider based in Kenya focused on reliable internet connectivity powered by renewable energy. We are committed to uptime, same-day installation, exemplary customer service, and after-sale support.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+To reach us:
+            - [our website](https://streamwan.vercel.app)
