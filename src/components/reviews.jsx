@@ -30,9 +30,10 @@ export default function Reviews () {
 
             }}
             >
-                {customers.map((elem) => 
+                {customers.map((elem, index) => 
                 <div 
                 className='mx-5 p-5'
+                key={index}
                 >
                     <p className='text-lg text-green-950'>{elem.review}</p>
                     <br></br>
