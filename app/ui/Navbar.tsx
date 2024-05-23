@@ -18,9 +18,11 @@ export default function Navbar(){
             {/* {DESKTOP VERSION STARTS HERE} */}
 
             {/* {SHANKS IMAGE} */}
-            <button className="inline-flex items-center text-lg font-bold"
-            >Streamwan
-            </button>
+            <Link href={`/`}>
+              <button className="inline-flex items-center text-lg font-bold"
+              >Streamwan
+              </button>
+            </Link>
 
             {/* Mobile Menu Button */}
 
