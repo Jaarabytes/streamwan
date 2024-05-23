@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # StreamWan
 
 This is a simple project that uses React ,Tailwind CSS and ViteJS.
@@ -10,21 +11,16 @@ To reach us:
             - [our website](https://streamwan.vercel.app)
 =======
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+=======
+# StreamWan
+>>>>>>> 70881e2 (refactor: add content to README file)
 
-## Getting Started
+This is a simple project that uses React ,Tailwind CSS and ViteJS.
 
-First, run the development server:
+We are a Green Internet Service Provider based in Kenya focused on reliable internet connectivity powered by renewable energy. We are committed to uptime, same-day installation, exemplary customer service, and after-sale support.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
+<<<<<<< HEAD
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
@@ -46,3 +42,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 >>>>>>> a1e0cbb (Initial commit from Create Next App)
+=======
+To reach us:
+            - [our website](https://streamwan.vercel.app)
+>>>>>>> 70881e2 (refactor: add content to README file)
