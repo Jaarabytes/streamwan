@@ -37,9 +37,9 @@ export default function Navbar(){
             {/* {DESKTOP MENU} */}
             <ul className={`list-none p-0 sm:flex hidden`}>
                 {navItems.map((elem, index) => (
-                    <li key={index} className="block ml-4 p-3"><Link href={elem.link} className="text-lg hover:underline hover:text-neon">
+                    <button key={index} className="block rounded-full ml-4 p-3 hover:bg-slate-300 transition duration:500"><Link href={elem.link} className="text-lg">
                     {elem.name}    
-                    </Link></li>
+                    </Link></button>
                 ))}
             </ul>
 

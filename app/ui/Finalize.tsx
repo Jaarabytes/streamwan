@@ -2,14 +2,16 @@ import Link from "next/link"
 
 
 export default function Finalize () {
-    const builtFor = ["families", "companies", "households", ""]
+    const builtFor = ["families", "companies", "households"]
     // add relevant href links
     return (
         <>
             <div className='sm:my-48 px-[20%]'>
                 {builtFor.map((element, index) => (
                     // Add carousel animation similar to wazo but moves horizontally
-                    <span key={index}></span>
+                    <span key={index}>
+                        {/* Made for {element}. add a function (possibly a for loop) */}
+                    </span>
                 ))}
                 <h1 className="text-3xl mx-5 text-green-900 font-bold">Wi-Fight us?</h1>
                 <div className="sm:text-center sm:flex sm:my-16 px-5">
