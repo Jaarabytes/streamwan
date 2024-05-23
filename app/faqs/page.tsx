@@ -1,6 +1,5 @@
 // TO BE placed in its own route, similar to wazo.today
-
-import React from "react";
+import Footer from "@/app/ui/Footer";
 
 export default function FAQs() {
   const items = [
@@ -39,9 +38,10 @@ export default function FAQs() {
   ];
 
   return (
+    <>
     <div className=" px-[10%]">
-      <h1 className="text-green-900 font-bold text-3xl mx-10">Frequently asked questions: </h1>
-      <div className="flex">
+      <h1 className="text-green-900 font-bold text-3xl m-10">Frequently asked questions: </h1>
+      <div className="grid grid-rows-4 grid-flow-col">
       {items.map((item, index) => (
         <div key={index} className="m-10">
           <h4 className="text-lg my-5 font-bold">{item.question}</h4>
@@ -50,5 +50,7 @@ export default function FAQs() {
       ))}
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
