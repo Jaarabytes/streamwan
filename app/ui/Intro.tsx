@@ -1,8 +1,10 @@
 import Link from "next/link";
+import Navbar from "@/app/ui/Navbar";
 
 export default function Intro(){
     return(
         <>
+        <Navbar />
         <div className="sm:flex block min-h-full my-16 px-5" id="home">
             {/* <div className="relative inline-block xl:w-1/2 w-full overflow-hidden" id="Home"> */}
                 {/* <img src="https://jomeista.github.io/streamwan/img/Homefibre.png" /> */}
@@ -31,7 +33,8 @@ export default function Intro(){
                             paddingInline: "30px"
                         }}
                         // href=''
-                        >Buy me!</button>
+                        >Buy me!
+                        </button>
                     </Link>
                 </div>
             </div>
