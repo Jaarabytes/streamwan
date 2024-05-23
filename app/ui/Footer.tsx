@@ -1,6 +1,6 @@
-import React from "react";
+import Link from "next/link"
 
-// Add relevant links when going full stack bozo
+
 export default function Footer() {
   return (
     <>
@@ -9,24 +9,24 @@ export default function Footer() {
       <h1 className="text-xl font-extrabold my-5">StreamWan</h1>
       <div>
         <h3 className="text-lg font-bold text-slate-300 mt-5">PRODUCT:</h3>
-        <a target="_blank" rel="noreferrer" href="https://twitter.com/jaarabytes" className="block my-3">Pricing</a>
-        <a target="_blank" rel="noreferrer" href="https://twitter.com/jaarabytes"  className="block my-3">FAQs</a>
+        <Link target="_blank" rel="noreferrer" href={`/trial`}  className="block my-3">Pricing</Link>
+        <Link target="_blank" rel="noreferrer" href={`/faqs`}   className="block my-3">FAQs</Link>
       </div>
       <div>
         <h2 className="text-lg font-bold text-slate-300 mt-5">ABOUT:</h2>
-        <a target="_blank" rel="noreferrer" href="https://twitter.com/jaarabytes" className="block my-3">Privacy</a>
-        <a target="_blank" rel="noreferrer" href="https://twitter.com/jaarabytes" className="block my-3">Company</a>
+        <Link target="_blank" rel="noreferrer" href={`/privacy`} className="block my-3">Privacy</Link>
+        <Link target="_blank" rel="noreferrer" href={`/faqs`} className="block my-3">Company</Link>
       </div>
       <div className="block">
         <h1 className="text-lg font-bold text-slate-300 mt-5">CONTACT:</h1>
-        <a target="_blank" rel="noreferrer" href="https://twitter.com/jaarabytes" className="block my-3">Twitter</a>
-        <a target="_blank" rel="noreferrer" href="mailto:xavierandole@gmail.com" className="block my-3">Mail</a>
-        <a target="_blank" rel="noreferrer" href="https://github.com/jaarabytes" className="block my-3">Github</a>
+        <Link target="_blank" rel="noreferrer" href="https://twitter.com/jaarabytes" className="block my-3">Twitter</Link>
+        <Link target="_blank" rel="noreferrer" href="mailto:xavierandole@gmail.com" className="block my-3">Mail</Link>
+        <Link target="_blank" rel="noreferrer" href="https://github.com/jaarabytes" className="block my-3">Github</Link>
       </div>
       <div className="block">
         <h1 className="text-lg font-bold text-slate-300 mt-5">LEGAL:</h1>
-        <a target="_blank" rel="noreferrer" href="https://twitter.com/jaarabytes" className="block my-3">Terms of service</a>
-        <a target="_blank" rel="noreferrer" href="mailto:xavierandole@gmail.com" className="block my-3">Privacy policy</a>
+        <Link target="_blank" rel="noreferrer" href={`/terms`}  className="block my-3">Terms of service</Link>
+        <Link target="_blank" rel="noreferrer" href={`/privacy`}  className="block my-3">Privacy policy</Link>
       </div>
       </div>
       <footer className="text-center bg-green-900 text-slate-400 pb-10">© Copyright 2024 StreamWan. All Rights Reserved.</footer>
