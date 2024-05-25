@@ -1,1 +1,9 @@
-// Don't forget to add google auth xzz nerds reposiroty (it's starred)
+
+
+export default function SignIn() {
+    return (
+        <>
+            <h1>Hello, this is the sign in page!</h1>
+        </>
+    )
+}
