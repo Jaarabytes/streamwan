@@ -51,7 +51,7 @@ export default function PrivacyPage () {
                 <div className="px-[20%] my-5">
                     {/* Map them out here */}
                     {policies.map(( element, index ) => (
-                        <div>
+                        <div key={index}>
                             <h1 className="text-2xl font-bold my-5">{index + 1}{". " + element.title}</h1>
                             <p className="my-5">{element.p1}</p>
                             <p>{element.p2}</p>
