@@ -1,29 +1,22 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-// import type { NextAuthConfig } from 'next-auth';
+import type { NextAuthConfig } from "next-auth";
 
-// export const authConfig = {
-//     pages : {
-//         signIn: "/login",
-//     },
-//     callbacks: {
-//         authorized ({ auth, request: { nextUrl }}) {
-//             const isLoggedIn = !!auth?.user;
-//             const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-//             if (isOnDashboard) {
-//                 if (isLoggedIn) {
-//                     return true;
-//                 }
-//                 else{
-//                     return false;
-//                 }
-//             }
-//             else if (isLoggedIn) {
-//                 return Response.redirect(new URL('/dashboard', nextUrl));
+export const authConfig = {
+    pages : {
+        signIn: "/sign_in"
+    },
+    callbacks : {
+        authorized ( {auth, request : { nextUrl } } ) {
+            const isLoggedIn = !!auth?.user;
+            const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
 
-//             }
-//             return true;
-//         }
-//     },
-//     providers: []
-// } satisfies NextAuthConfig;
+            if ( isOnDashboard ) {
+                if ( isLoggedIn ) return true;
+                return false;
+            } else if (isLoggedIn) {
+                return Response.redirect(new URL('/dashboard', nextUrl))
+            }
+            return true;
+        }
+    },
+    providers: []
+} satisfies NextAuthConfig;
