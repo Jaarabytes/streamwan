@@ -42,7 +42,7 @@ export default function Marketing () {
                 </div>
                 <div className='sm:w-1/2'>
                     <h2 className='text-[40px] text-green-900 font-extrabold my-5'>Cooperative Customer Care</h2>
-                    <p className='text-xl text-green-800'>Don't settle for less. StreamWan services provide excellent services before, during and after installation.
+                    <p className='text-xl text-green-800'>Don&apos;t settle for less. StreamWan services provide excellent services before, during and after installation.
                     We take full responsibility for problems encountered along the way. 
                     </p>
                     <Link href={`/trial`}>

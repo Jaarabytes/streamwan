@@ -1,18 +1,18 @@
 'use client'
 import Link from "next/link"
-import { useState, useEffect } from "react"
+// import { useState, useEffect } from "react"
 
 export default function Finalize () {
-    const builtFor = ["families", "companies", "households"]
-    const [ currentIndex, setCurrentIndex ] = useState(0);
+    // const builtFor = ["families", "companies", "households"]
+    // const [ currentIndex, setCurrentIndex ] = useState(0);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => ( prevIndex + 1 ) %  builtFor.length)
-        }, 2000);
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setCurrentIndex((prevIndex) => ( prevIndex + 1 ) %  builtFor.length)
+    //     }, 2000);
 
-        return () => clearInterval(interval)
-    }, [])
+    //     return () => clearInterval(interval)
+    // }, [])
     // add relevant href links
     return (
         <>
