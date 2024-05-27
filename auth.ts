@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { sql } from "@vercel/postgres";
 import type { User } from "@/app/lib/definitions";
 import bcrypt from 'bcrypt'
+import GoogleProvider from "next-auth/providers/google";
 
 async function getUser ( email: string ): Promise <User | undefined > {
     try {
@@ -32,5 +33,8 @@ export const { auth, signIn, signOut } = NextAuth({
             console.log("Invalid credentials")
             return null
         }
+    }), GoogleProvider({
+        clientId: process.env.GOOGLE_ID,
+        clientSecret: process.env.GOOGLE_SECRET
     })]
 })

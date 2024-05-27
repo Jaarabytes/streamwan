@@ -23,9 +23,6 @@ export default function LoginForm() {
         <h1 className={`Lusitana.className mb-3 text-2xl`}>
         Log in
         </h1>
-        <button className='bg-green-800 p-3 rounded-lg text-white hover:bg-green-600'>
-          Continue with google
-        </button>
         <div className="w-full">
           <div>
             <label
@@ -83,6 +80,22 @@ export default function LoginForm() {
       </div>
     </form>
   );
+}
+
+function googleLogin() {
+
+  // const handleClick = ( event: any ) => {
+  //   if (pending) {
+  //     event.preventDefault()
+  //   }
+  // }
+  return (
+    <>
+      <button className='bg-green-800 p-3 rounded-lg text-white hover:bg-green-600'>
+          Continue with google
+        </button>
+    </>
+  )
 }
 
 function LoginButton() {
