@@ -25,7 +25,7 @@ export default function Intro(){
                         >Get demo</button>
                     </Link>
 
-                    <Link href={`/sign_in`}>
+                    <Link href={`/trial`}>
                         <button 
                         className="block w-full sm:w-[150px] sm:mx-5 bg-green-900 text-lg rounded-xl text-white hover:bg-green-800 transition duration:500"
                         style={{

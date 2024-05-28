@@ -42,7 +42,7 @@ export default function Finalize () {
                     </Link>
 
 
-                    <Link href={`/sign_in`}>
+                    <Link href={`/trial`}>
                         <button
                         className="mx-5 block w-full sm:w-[250px] bg-green-900 text-lg rounded-lg text-white hover:bg-green-800 transition duration:500"
                         style={{

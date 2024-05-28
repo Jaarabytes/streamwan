@@ -90,7 +90,7 @@ export default function Offers() {
           <p className="mt-5 px-3">Sharing: {elem.price.sharing}</p>
           <p className="mb-5 px-3">Dedicated: {elem.price.dedicated}</p>
           <hr className="my-5" />
-          <Link href={`/sign_in`}>
+          <Link href={`/trial`}>
           <button className={`m-2 px-5 py-3 w-3/4 rounded-lg text-white text-2xl ${elem.name === 'Basic' ? 
           "bg-green-700 hover:bg-green-900 transition duration:500" : elem.name === "Family" ? 
           "bg-pink-500 hover:bg-pink-700 transition duration:500" : elem.name === "Bronze" ? 
