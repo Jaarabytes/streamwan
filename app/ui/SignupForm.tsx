@@ -2,7 +2,6 @@
 
 // Add google authentication
 import { Button } from './Button';
-import { Lusitana } from 'next/font/google';
 import {
   AtSymbolIcon,
   KeyIcon,
@@ -24,7 +23,7 @@ export default function SignUpForm() {
         <h1 className={`Lusitana.className mb-3 text-2xl`}>
         Sign up
         </h1>
-        {/* <GoogleLogin /> */}
+        <GoogleLogin />
         <div className="w-full">
           <div>
             <label
@@ -85,12 +84,6 @@ export default function SignUpForm() {
 }
 
 function GoogleLogin() {
-
-  // const handleClick = ( event: any ) => {
-  //   if (pending) {
-  //     event.preventDefault()
-  //   }
-  // }
   return (
       <button className='bg-green-800 p-3 rounded-lg text-white hover:bg-green-600' onClick={() => signIn("google")}>
           Continue with google
