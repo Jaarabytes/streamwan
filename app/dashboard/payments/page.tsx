@@ -1,11 +1,10 @@
 
-
-export default function Payments () {
-
+export default function PaymentsPage () {
+    // Should display all payments made with their respective dates
 
     return (
         <>
-            <h1>This is the payments section!!</h1>
+            <h1 className="text-green-900 font-bold text-2xl">Hello, here is a history of all your payments: </h1>
         </>
     )
 }
