@@ -7,7 +7,7 @@ import SignUpForm from "@/app/ui/SignupForm"
 // import { redirect } from "next/navigation"
 
 // export async function Trial () {
-//     redirect(`/sign_in`)
+//     redirect(`/login`)
 // }
 export default function TrialPage () {
     return (

@@ -7,7 +7,7 @@ export default function SignIn() {
         <>
             <Navbar />
             <div className="my-5">
-                <h1 className="my-5 text-3xl text-green-900">Hello, this is the sign in page!</h1>
+                <h1 className="my-5 text-3xl text-green-900">Hello, this is the Login page!</h1>
                 <LoginForm />
             </div>
             <Footer />
