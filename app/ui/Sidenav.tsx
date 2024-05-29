@@ -13,7 +13,7 @@ export default function Sidenav () {
           href: '/dashboard/payments',
           icon: DocumentDuplicateIcon,
         },
-        { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+        { name: 'Profile', href: '/dashboard/profile', icon: UserGroupIcon },
       ];
     return (
         <>
