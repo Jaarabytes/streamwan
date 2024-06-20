@@ -2,7 +2,7 @@ import Navbar from "@/app/ui/Navbar"
 import LoginForm from "@/app/ui/LoginForm"
 import Footer from "@/app/ui/Footer"
 
-export default function SignIn() {
+export default function Login() {
     return (
         <>
             <Navbar />

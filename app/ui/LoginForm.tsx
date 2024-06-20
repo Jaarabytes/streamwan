@@ -11,8 +11,10 @@ import {
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/app/lib/actions';
-import GoogleProvider from 'next-auth/providers/google';
-import { signIn } from 'next-auth/react';
+// import GoogleProvider from 'next-auth/providers/google';
+// import { signIn } from 'next-auth/react';
+import { signIn } from '@/auth';
+import GoogleLogin from './GoogleAuth';
 
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
@@ -24,7 +26,7 @@ export default function LoginForm() {
         <h1 className={`Lusitana.className mb-3 text-2xl`}>
         Log in
         </h1>
-        {/* <GoogleLogin /> */}
+        <GoogleLogin />
         <div className="w-full">
           <div>
             <label
@@ -82,20 +84,6 @@ export default function LoginForm() {
       </div>
     </form>
   );
-}
-
-function GoogleLogin() {
-
-  // const handleClick = ( event: any ) => {
-  //   if (pending) {
-  //     event.preventDefault()
-  //   }
-  // }
-  return (
-      <button className='bg-green-800 p-3 rounded-lg text-white hover:bg-green-600' onClick={() => signIn("google")}>
-          Continue with google
-        </button>
-  )
 }
 
 function LoginButton() {

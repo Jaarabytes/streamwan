@@ -10,7 +10,7 @@ export default function Navbar(){
         setMenuOpen(!isMenuOpen);
     }
 
-    const navItems = [{name: "Pricing", link: "/pricing"}, {name: "Login", link: "/login"},]
+    const navItems = [{name: "Pricing", link: "/pricing"}, {name: "Login", link: "/api/auth/login"},]
     
     return(
         <nav className={`p-4 flex justify-between items-center sticky top-0 shadow-lg z-50 bg-slate-200`}>

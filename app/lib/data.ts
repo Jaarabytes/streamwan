@@ -3,6 +3,8 @@ import { unstable_noStore as noStore } from "next/cache";
 import { User, Customer, Payments, Revenue, LatestPayment, PaymentsTable, LatestPaymentRaw, CustomersTableType, CustomerField, PaymentForm } from './definitions'
 import { formatCurrency } from "./utils";
 
+
+const ITEMS_PER_PAGE = 6;
 export async function fetchRevenue () {
     noStore()
     try {
@@ -43,16 +45,30 @@ export async function fetchLatestPayments () {
 
 }
 
-export async function fetchCardData () {
+export async function fetchPayments () {
     
 }
 
-export async function fetchCustomers () {
-    
-}
-
-export default function fetchFilteredCustomers (query: string) {
-
+export async function fetchPaymentsPages (query: string) {
+    noStore();
+    try{
+        const count = await sql`SELECT COUNT(*)
+        FROM invoices
+        JOIN customers ON payments.customer_id = customers.id
+        WHERE
+        customers.name ILIKE ${`%${query}%`} OR
+        customers.email ILIKE ${`%${query}%`} OR
+        payments.amount::text ILIKE ${`%${query}%`} OR
+        payments.date::text ILIKE ${`%${query}%`} OR
+        payments.status ILIKE ${`%${query}%`}
+        `
+        const totalPages = Math.ceil(Number(count.rows[0].count)/ ITEMS_PER_PAGE);
+        return totalPages;
+    }
+    catch (err) {
+        console.error("Error when fetching payment pages", err)
+        throw new Error("FAiled to fetch payments pages");
+    }
 }
 
 
@@ -64,7 +80,7 @@ export async function getUser (email: string) {
         return user.rows[0] as User;
     }
     catch ( err ) {
-        console.error("An error occured when fetching user", err)
+        console.error("An error occurred when fetching user", err)
         throw new Error ("Failed to fetch user");
     }
 }

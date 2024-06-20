@@ -5,7 +5,13 @@ import { z } from 'zod'
 import { sql } from "@vercel/postgres";
 import type { User } from "@/app/lib/definitions";
 import bcrypt from 'bcrypt'
-import GoogleProvider from "next-auth/providers/google";
+// import GoogleProvider from "next-auth/providers/google";
+// import Google from "next-auth/providers/google"
+
+import Auth from "@auth/core"
+import Google from "@auth/core/providers/google"
+
+// This is where the issue is, please update
 
 async function getUser ( email: string ): Promise <User | undefined > {
     try {
@@ -18,7 +24,8 @@ async function getUser ( email: string ): Promise <User | undefined > {
     }
 }
 
-export const { auth, signIn, signOut } = NextAuth({
+
+export const { auth, signIn, signOut, handlers } = NextAuth({
     ...authConfig,
     providers : [credentials({
         async authorize (credentials) {
@@ -33,8 +40,5 @@ export const { auth, signIn, signOut } = NextAuth({
             console.log("Invalid credentials")
             return null
         }
-    }), GoogleProvider({
-        clientId: process.env.GOOGLE_ID,
-        clientSecret: process.env.GOOGLE_SECRET
-    })]
+    }), Google({clientId: process.env.AUTH_GOOGLE_ID , clientSecret: process.env.AUTH_GOOGLE_SECRET})]
 })

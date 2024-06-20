@@ -14,7 +14,7 @@ export default function TrialPage () {
         <>
             <Navbar />
             <div className="my-5">
-                <h1 className="my-5 text-3xl text-green-900">Hello, this is the sign up page!</h1>
+                <h1 className="my-5 text-3xl text-green-900 mx-5">Hello, this is the sign up page!</h1>
                 <SignUpForm />
             </div>
             <Footer />

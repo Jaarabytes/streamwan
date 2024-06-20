@@ -44,7 +44,7 @@ export async function register (prevState: string | undefined, formData: FormDat
         `
         if (!emailExists.rows.length) {
             await sql`
-            INSERT INTO users (id, email, password) IF users.email NOT EXISTS
+            INSERT INTO users (id, email, password)
             VALUES (${id}, ${email}, ${hashedPassword})
             `
             console.log("User created successfully")
@@ -57,7 +57,7 @@ export async function register (prevState: string | undefined, formData: FormDat
     }
     catch (err) {
         console.error("Database error, failed to create an account", err)
-        throw new Error("Failed to create account")
+        // throw new Error("Failed to create account")
     }
     redirect('/dashboard')
 }
