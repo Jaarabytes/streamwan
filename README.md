@@ -4,5 +4,5 @@ We are a Green Internet Service Provider based in Kenya focused on reliable inte
 
 
 To reach us:
-            - [our website](https://streamwan.vercel.app)
-            - [contact page](https://streamwan.vercel.app/contact-us)
+* [our website](https://streamwan.vercel.app)
+* [contact page](https://streamwan.vercel.app/contact-us)
