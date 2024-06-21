@@ -1,7 +1,9 @@
-import Link from "next/link";
 import Image from "next/image";
-
+import { signIn } from "next-auth/react";
 export default function Marketing () {
+    const handleSignIn = () => {
+        signIn('google')
+    }
   return (
     <>
         <div className='sm:my-48'>
@@ -11,15 +13,14 @@ export default function Marketing () {
                     <p className='text-xl text-green-800'>Tired of slow internet? Upgrade to our lightning-fast Wi-Fi for seamless streaming and lag-free gaming.
                         Join thousands of satisfied customers and transform your online experience now!
                     </p>
-                    <Link href={`/trial`}>
-                        <button
+                    
+                        <button onClick={() =>handleSignIn}
                         className="w-full sm:w-1/4 bg-green-900 text-xl my-5 rounded-lg text-white hover:bg-green-800 transition duration:500"
                         style={{
                             paddingBlock: "10px",
                             paddingInline: "30px"
                         }}>Learn more</button>
-                    </Link>
-                </div>
+=                </div>
                 <div>
                     <Image
                     height={400}
@@ -45,13 +46,13 @@ export default function Marketing () {
                     <p className='text-xl text-green-800'>Don&apos;t settle for less. StreamWan services provide excellent services before, during and after installation.
                     We take full responsibility for problems encountered along the way. 
                     </p>
-                    <Link href={`/trial`}>
-                        <button className="w-full sm:w-1/4 bg-green-900 my-5 text-xl rounded-lg text-white hover:bg-green-800 transition duration:500"
+                    
+                        <button onClick={() =>handleSignIn}
+                        className="w-full sm:w-1/4 bg-green-900 my-5 text-xl rounded-lg text-white hover:bg-green-800 transition duration:500"
                             style={{
                                 paddingBlock: "10px",
                                 paddingInline: "30px"
                             }}>Learn more</button>
-                    </Link>
                 </div>
             </div>
         </div>

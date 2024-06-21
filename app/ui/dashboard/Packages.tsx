@@ -1,13 +1,12 @@
 'use client'
 // use this please
+import { signIn } from "next-auth/react";
 import { useInsertionEffect } from "react";
 import Link from 'next/link';
 export default function Packages() {
-//   const {ref, inView} = useInView({
-//     rootMargin:"-300px 0px -300px 0px",
-//     triggerOnce:true
-//   });
-
+    const handleSignIn = () => {
+      signIn('google')
+    }
   const items = [
     {
       name: "Basic",
@@ -68,10 +67,6 @@ export default function Packages() {
       ],
     },
   ];
-
-
-//   FIX THE REACT INTERSECTION OBSERVER
-// I am fixing right now
   return (
     <div className="grid md:grid-cols-4 gap-4 px-5 min-h-full sm:grid-cols-2 grid-cols-1 mb-10">
       {items.map((elem) => (
@@ -90,13 +85,13 @@ export default function Packages() {
           <p className="mt-5 px-3">Sharing: {elem.price.sharing}</p>
           <p className="mb-5 px-3">Dedicated: {elem.price.dedicated}</p>
           <hr className="my-5" />
-          <Link href={`/trial`}>
-          <button className={`m-2 px-5 py-3 w-3/4 rounded-lg text-white text-2xl ${elem.name === 'Basic' ? 
+          
+          <button onClick={() =>handleSignIn}
+           className={`m-2 px-5 py-3 w-3/4 rounded-lg text-white text-2xl ${elem.name === 'Basic' ? 
           "bg-green-700 hover:bg-green-900 transition duration:500" : elem.name === "Family" ? 
           "bg-pink-500 hover:bg-pink-700 transition duration:500" : elem.name === "Bronze" ? 
           "bg-amber-500 hover:bg-amber-600 transition duration:500" : 
           "bg-blue-900 hover:bg-slate-800 transition duration:500"}`}>Purchase</button>
-          </Link>
         </div>
       ))}
     </div>

@@ -1,23 +1,29 @@
-import Navbar from "@/app/ui/Navbar"
-import Footer from "@/app/ui/Footer"
-import SignUpForm from "@/app/ui/SignupForm"
-// 'use server'
+'use client'
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import LoadingModal from "../ui/Loading";
+// this should redirect to the google sign in page the original onemptied, not your own
+export default function TrialPage() {
+  const router = useRouter();
+  const [ isLoading, setIsLoading ] = useState(false);
+  useEffect(() => {
+    const redirectToSignIn = async () => {
+      try {
+        setIsLoading(true);
+        // Show loading modal while redirecting
+        // You can implement additional logic here if needed
+        router.push('/login');
+      } catch (error) {
+        console.error("Failed to redirect to sign in:", error);
+        // Optionally handle error (e.g., show a notification to the user)
+      }
+      finally {
+        setIsLoading(false);
+      }
+    };
 
-// Don't forget to add google auth xzz nerds reposiroty (it's starred)
-// import { redirect } from "next/navigation"
+    redirectToSignIn();
+  }, [router]);
 
-// export async function Trial () {
-//     redirect(`/login`)
-// }
-export default function TrialPage () {
-    return (
-        <>
-            <Navbar />
-            <div className="my-5">
-                <h1 className="my-5 text-3xl text-green-900 mx-5">Hello, this is the sign up page!</h1>
-                <SignUpForm />
-            </div>
-            <Footer />
-        </>
-    )
+  return <LoadingModal isOpen={isLoading} />;
 }
