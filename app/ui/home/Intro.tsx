@@ -1,3 +1,4 @@
+'use client'
 import Navbar from "@/app/ui/home/Navbar";
 import { signIn } from "next-auth/react";
 export default function Intro(){
@@ -15,7 +16,7 @@ export default function Intro(){
                 <br />
                 <div className="sm:text-center sm:flex sm:justify-center sm:my-16 px-5">
                     
-                        <button onClick={() =>handleSignIn}
+                        <button onClick={handleSignIn}
                         className="block w-full sm:w-[150px] text-lg text-green-900 rounded-xl border-2 border-green-900 hover:bg-slate-100/70 transition duration:500"
                         style={{
                             paddingBlock: "10px",
@@ -24,7 +25,7 @@ export default function Intro(){
                         >Get demo</button>
 
                     
-                        <button onClick={() =>handleSignIn}
+                        <button onClick={handleSignIn}
                         className="block w-full sm:w-[150px] sm:mx-5 bg-green-900 text-lg rounded-xl text-white hover:bg-green-800 transition duration:500"
                         style={{
                             paddingBlock: "10px",
