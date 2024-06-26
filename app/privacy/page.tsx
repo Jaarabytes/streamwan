@@ -1,4 +1,4 @@
-import Footer from "@/app/ui/Footer"
+import Footer from "@/app/ui/home/Footer"
 
 
 export default function PrivacyPage () {

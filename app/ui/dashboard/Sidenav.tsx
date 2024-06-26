@@ -1,19 +1,18 @@
 import Link from "next/link"
-import { signOut } from "@/auth"
-import { PowerIcon } from "@heroicons/react/24/outline"
-import HomeIcon from "@heroicons/react/24/outline";
-import DocumentDuplicateIcon from "@heroicons/react/24/outline";
-import UserGroupIcon from "@heroicons/react/24/outline";
+import { FaRegUserCircle } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+import { IoCashOutline } from "react-icons/io5";
 import clsx from "clsx";
+import { FaPowerOff } from "react-icons/fa";
 export default function Sidenav () {
     const links = [
-        { name: 'Home', href: '/dashboard', icon: HomeIcon },
+        { name: 'Home', href: '/dashboard', icon:  FaHome},
         {
           name: 'Payments',
           href: '/dashboard/payments',
-          icon: DocumentDuplicateIcon,
+          icon: IoCashOutline,
         },
-        { name: 'Profile', href: '/dashboard/profile', icon: UserGroupIcon },
+        { name: 'Profile', href: '/dashboard/profile', icon: FaRegUserCircle},
       ];
     return (
         <>
@@ -34,6 +33,7 @@ export default function Sidenav () {
                             },
                             )}
                         >
+                            <LinkIcon className='text-xl inline' />
                             <p className="hidden md:block">{link.name}</p>
                         </Link>
                         );
@@ -41,11 +41,10 @@ export default function Sidenav () {
                     <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
                     <form action={async () => { 
                     'use server'
-                    await signOut(); 
                     }}>
                         <button className="flex h-[48px] w-full grow items-center justify-center gap-2 
                         rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-red-600 hover:text-green-100 md:flex-none md:justify-start md:p-2 md:px-3">
-                            <PowerIcon className="w-6" />
+                            <FaPowerOff className="text-xl" />
                             <div className="hidden md:block">Sign Out</div>
                         </button>
                     </form>

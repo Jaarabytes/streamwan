@@ -4,7 +4,7 @@ export default function PaymentsPage () {
 
     return (
         <>
-            <h1 className="text-green-900 font-bold text-2xl">Hello, here is a history of all your payments: </h1>
+            <h1 className="font-bold text-2xl">Hello, here is a history of all your payments: </h1>
         </>
     )
 }

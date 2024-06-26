@@ -1,5 +1,5 @@
 // TO BE placed in its own route, similar to wazo.today
-import Footer from "@/app/ui/Footer";
+import Footer from "@/app/ui/home/Footer";
 
 export default function FAQs() {
   const items = [

@@ -21,7 +21,7 @@ export default function Marketing () {
                             paddingBlock: "10px",
                             paddingInline: "30px"
                         }}>Learn more</button>
-=                </div>
+                </div>
                 <div>
                     <Image
                     height={400}
