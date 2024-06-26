@@ -1,5 +1,5 @@
 
-import Sidenav from "@/app/ui/Sidenav"
+import Sidenav from "@/app/ui/dashboard/Sidenav"
 
 export default function Layout ({ children }: {children : React.ReactNode} ) {
     return (
