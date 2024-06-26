@@ -10,6 +10,7 @@
     "seed": "node -r dotenv/config ./scripts/seed.js"
   },
   "dependencies": {
+    "@prisma/client": "^5.16.0",
     "@stripe/stripe-js": "^3.4.1",
     "@vercel/postgres": "^0.9.0",
     "bcrypt": "^5.1.1",
