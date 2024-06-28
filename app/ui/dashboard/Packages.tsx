@@ -1,13 +1,11 @@
 'use client'
-// use this please
-import { signIn } from "next-auth/react";
+import { toast } from 'react-toastify'
+import { PaystackConsumer } from 'react-paystack';
 import { useInsertionEffect } from "react";
 import Link from 'next/link';
 export default function Packages() {
-    const handleSignIn = () => {
-      signIn('google')
-    }
-  const items = [
+
+    const items = [
     {
       name: "Basic",
       speed: "5 Mbps",
@@ -67,6 +65,17 @@ export default function Packages() {
       ],
     },
   ];
+    // Do this, paystack -> prisma -> auth done and dusted
+
+    // Map out all the respective prices
+    // Also there  is an issue on the currency not working
+    // Also, the public key in jipime should just be hardcoded instead of imported from the env file
+    const publicKey ='pk_live_9999378c83331abc0c642f96d2457a5f88969934'
+    //this is honestly a better configuration, let's see if it works
+    const config = { reference: (new Date()).getTime().toString(), email: 'xh3rking96@gmail.com', publicKey: publicKey, amount: 200000 }
+    const onSuccess = () => toast.success("Payment sucessful")
+    const onClose = () => toast.error("uWu, please don't give up")
+    const componentProps = { ...config, text: 'Paystack configuration', onSuccess, onClose };
   return (
     <div className="grid md:grid-cols-4 gap-4 px-5 min-h-full sm:grid-cols-2 grid-cols-1 mb-10">
       {items.map((elem) => (
@@ -85,13 +94,13 @@ export default function Packages() {
           <p className="mt-5 px-3">Sharing: {elem.price.sharing}</p>
           <p className="mb-5 px-3">Dedicated: {elem.price.dedicated}</p>
           <hr className="my-5" />
-          
-          <button onClick={() =>handleSignIn}
+          <PaystackConsumer {...componentProps}>{({initializePayment}) =>
+          <button onClick={() => initializePayment(onSuccess, onClose)} 
            className={`m-2 px-5 py-3 w-3/4 rounded-lg text-white text-2xl ${elem.name === 'Basic' ? 
           "bg-green-700 hover:bg-green-900 transition duration:500" : elem.name === "Family" ? 
           "bg-pink-500 hover:bg-pink-700 transition duration:500" : elem.name === "Bronze" ? 
           "bg-amber-500 hover:bg-amber-600 transition duration:500" : 
-          "bg-blue-900 hover:bg-slate-800 transition duration:500"}`}>Purchase</button>
+          "bg-blue-900 hover:bg-slate-800 transition duration:500"}`}>Purchase</button>}</PaystackConsumer>
         </div>
       ))}
     </div>

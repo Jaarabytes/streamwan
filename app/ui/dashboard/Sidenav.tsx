@@ -5,6 +5,7 @@ import { IoCashOutline } from "react-icons/io5";
 import clsx from "clsx";
 import { Md4gPlusMobiledata } from "react-icons/md";
 import { FaPowerOff } from "react-icons/fa";
+import { BiDonateHeart } from "react-icons/bi";
 export default function Sidenav () {
     const links = [
         { name: 'Home', href: '/dashboard', icon:  FaHome},
@@ -14,6 +15,7 @@ export default function Sidenav () {
           icon: IoCashOutline,
         },
         { name: 'Profile', href: '/dashboard/profile', icon: FaRegUserCircle},
+        { name: "Donate", href: '/dashboard/donate', icon: BiDonateHeart }
       ];
     return (
         <>
