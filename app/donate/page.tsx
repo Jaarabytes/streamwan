@@ -1,27 +1,34 @@
 'use client'
-//yes, this is a donate money upvote, thank you all for the donations!!
-import { usePaystackPayment } from 'react-paystack'
+// Paystack component that accepts donations
+//
+import { usePaystackPayment, PaystackButton } from 'react-paystack';
 import { useState } from 'react';
 export default function Donate () {
     const [ amount, setAmount ] = useState(0);
-    const publicKey = 'pk_live_9999378c83331abc0c642f96d2457a5f88969934';
-    const config = { reference: (new Date()).getTime().toString(), email: 'xh3rking96@gmail.com', amount: amount, publicKey }
-    const onSuccess = () => alert("Thank you for the donation")
-    const onClose = () => alert("uWu, please don't leave")
-    const initializePayment = usePaystackPayment(config);
+    const config = {
+        reference: (new Date()).getTime().toString(),
+        email: "xh3rking96@gmail.com", 
+        amount: amount * 100,
+        publicKey: 'pk_live_9999378c83331abc0c642f96d2457a5f88969934',
+        currency: 'KES'
+        }
+    const onSuccess = ( reference: any ) => { console.log(reference) }
+    const onClose = () => { console.log("closed") }
     return (
-        <>
-                <div style={{minHeight: "100vh"}} className='text-center'>
-                <p className='my-3 text-2xl font-bold'>Thank you for your donation anon!</p>
-                <label>Amount: </label>
-                <br /><br />
-                <input className='rounded-sm p-2 text-center' value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
-                <br /><br />
-                <button className="text-white rounded-lg px-4 py-2 bg-green-900 hover:bg-green-700 px-3 my-3"
-                onClick={() => initializePayment(onSuccess, onClose)}
-                >Donate</button>
-                <p className='my-3'>Thank you so much <a href='https://paystack.com' className='font-bold text-green-900'>Paystack</a></p>
+            <>
+                <div className='text-center my-5' style={{minHeight: '100vh'}}>  
+                    <h1 className='text-2xl font-bold my-5'>Thank you for donating anon!</h1>
+                    <label>Amount in KES</label>
+                    <br /><br />
+                    <input className='text-center rounded-sm text-black py-3' value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
+                    <br /><br />
+                    <PaystackButton
+                    className='my-5 py-2 text-white rounded-lg px-3 bg-green-900 hover:bg-green-700'
+                    onSuccess={onSuccess} onClose={onClose}
+                    text='Money Upvote'
+                    {...config}
+                    />
                 </div>
-        </>
-       )
+           </>
+           )
 }
