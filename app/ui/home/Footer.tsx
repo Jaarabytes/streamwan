@@ -29,7 +29,7 @@ export default function Footer() {
         <Link target="_blank" rel="noreferrer" href={`/privacy`}  className="block my-3">Privacy policy</Link>
       </div>
       </div>
-      <footer className="text-center bg-green-900 text-slate-400 pb-10">© Copyright 2024 StreamWan. All Rights Reserved.</footer>
+      <footer className="text-center bg-green-900 text-slate-400 pb-10">© 2024 StreamWan, Inc.</footer>
       </div>
     </>
   )
