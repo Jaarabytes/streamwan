@@ -1,19 +1,15 @@
 'use client'
-// Paystack component that accepts donations
-//
-import { usePaystackPayment, PaystackButton } from 'react-paystack';
+import { PaystackConsumer } from 'react-paystack';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+
 export default function Donate () {
     const [ amount, setAmount ] = useState(0);
-    const config = {
-        reference: (new Date()).getTime().toString(),
-        email: "xh3rking96@gmail.com", 
-        amount: amount * 100,
-        publicKey: 'pk_live_9999378c83331abc0c642f96d2457a5f88969934',
-        currency: 'KES'
-        }
-    const onSuccess = ( reference: any ) => { console.log(reference) }
-    const onClose = () => { console.log("closed") }
+    const publicKey = process.env.PAYSTACK_LIVE_PUBLIC_KEY as string;
+    const config = { reference: (new Date()).getTime().toString(), email: 'xh3rking96@gmail.com', publicKey: publicKey, amount: amount * 100 }
+    const onSuccess = () => toast.success("Payment sucessful")
+    const onClose = () => toast.error("uWu, please don't give up")
+    const componentProps = { ...config, text: 'Paystack configuration', onSuccess, onClose };
     return (
             <>
                 <div className='text-center my-5' style={{minHeight: '100vh'}}>  
@@ -22,12 +18,12 @@ export default function Donate () {
                     <br /><br />
                     <input className='text-center rounded-sm text-black py-3' value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
                     <br /><br />
-                    <PaystackButton
-                    className='my-5 py-2 text-white rounded-lg px-3 bg-green-900 hover:bg-green-700'
-                    onSuccess={onSuccess} onClose={onClose}
-                    text='Money Upvote'
-                    {...config}
-                    />
+                    <PaystackConsumer {...componentProps}>{({ initializePayment }) => 
+                    <button className='my-5 py-2 text-white rounded-lg px-3 bg-green-900 hover:bg-green-700'
+                     onClick={() => initializePayment(onSuccess, onClose)}>Money upvote
+                    </button>
+                    }
+                    </PaystackConsumer>
                 </div>
            </>
            )
