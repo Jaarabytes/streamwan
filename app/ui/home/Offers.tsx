@@ -1,15 +1,10 @@
 'use client'
-// use this please
-import { useInsertionEffect } from "react";
 export default function Offers() {
   const items = [
     {
       name: "Basic",
       speed: "5 Mbps",
-      price: {
-        sharing: "2,000 KES/ mo",
-        dedicated: "3,000 KES/ mo",
-      },
+      price: 3000,
       qualities: [
         "Fast web browsing",
         "UHD movie and music streaming",
@@ -19,10 +14,7 @@ export default function Offers() {
     {
       name: "Family",
       speed: "15 Mbps",
-      price: {
-        sharing: "3500 KES/mo",
-        dedicated: "4500 KES/mo",
-      },
+      price: 4500,
       qualities: [
         "Fast web browsing",
         "SD Movie & Music Streaming",
@@ -33,10 +25,7 @@ export default function Offers() {
     {
       name: "Bronze",
       speed: "50 Mbps",
-      price: {
-        sharing: "4500 KES/mo",
-        dedicated: "6000 KES/mo",
-      },
+      price: 6000,
       qualities: [
         "Fast web browsing",
         "SD Movie & Music Streaming",
@@ -48,10 +37,7 @@ export default function Offers() {
     {
       name: "Premium",
       speed: "100 Mbps",
-      price: {
-        sharing: "7500 KES/mo",
-        dedicated: "10000 KES/mo",
-      },
+      price: 7500,
       qualities: [
         "Fast web browsing",
         "UHD Movie & Music Streaming",
@@ -62,10 +48,6 @@ export default function Offers() {
       ],
     },
   ];
-
-
-//   FIX THE REACT INTERSECTION OBSERVER
-// I am fixing right now
   return (
     <div className="grid md:grid-cols-4 gap-4 px-5 min-h-full sm:grid-cols-2 grid-cols-1 mb-10">
       {items.map((elem) => (
@@ -81,8 +63,7 @@ export default function Offers() {
             ))}
           </ul>
           <hr />
-          <p className="mt-5 px-3">Sharing: {elem.price.sharing}</p>
-          <p className="mb-5 px-3">Dedicated: {elem.price.dedicated}</p>
+          <p className="my-5 px-3 text-lg"><b>{elem.price}</b> KES per month</p>
           <hr className="my-5" />
           <a href="/sign_up"> 
           <button

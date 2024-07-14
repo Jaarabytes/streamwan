@@ -5,11 +5,14 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { redirect } from 'next/navigation';
-import { getSession, login, logOut } from '@/lib/actions';
+import { signUp } from '@/lib/actions';
 
 export default function SignUpForm() {
   return (
-    <form
+    <form action={async (formData) => {
+      await signUp(formData);
+      redirect('/dashboard')
+    }}
     className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`mb-3 text-2xl`}>

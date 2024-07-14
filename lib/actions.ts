@@ -31,6 +31,24 @@ export async function login (formData: FormData ) {
     }
 }
 
+export async function signUp (formData: FormData ) {
+    try {
+
+    }
+    catch ( error ) {
+        throw error;
+    }
+}
+
+export async function createPayment ( ) {
+    try {
+
+    }
+    catch ( error ) {
+        throw error;
+    }
+}
+
 export async function logOut () {
     // terminate the session
     cookies().set("session", "", {expires: new Date(0) })

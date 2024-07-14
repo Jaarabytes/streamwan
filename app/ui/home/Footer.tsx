@@ -9,7 +9,7 @@ export default function Footer() {
       <h1 className="text-xl font-extrabold my-5"><a href="/">StreamWan</a></h1>
       <div>
         <h3 className="text-lg font-bold text-slate-300 mt-5">PRODUCT:</h3>
-        <Link href={`/trial`}  className="block my-3">Pricing</Link>
+        <Link href={`/pricing`}  className="block my-3">Pricing</Link>
         <Link href={`/faqs`}   className="block my-3">FAQs</Link>
       </div>
       <div>
