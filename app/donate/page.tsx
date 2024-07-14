@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 export default function Donate () {
     const [ amount, setAmount ] = useState(0);
     const publicKey = process.env.PAYSTACK_LIVE_PUBLIC_KEY as string;
-    const config = { reference: (new Date()).getTime().toString(), email: 'xh3rking96@gmail.com', publicKey: publicKey, amount: amount * 100 }
+    const config = { reference: (new Date()).getTime().toString(), currency: "KES", email: 'xh3rking96@gmail.com', publicKey: publicKey, amount: amount * 100 }
     const onSuccess = () => toast.success("Payment sucessful")
     const onClose = () => toast.error("uWu, please don't give up")
     const componentProps = { ...config, text: 'Paystack configuration', onSuccess, onClose };

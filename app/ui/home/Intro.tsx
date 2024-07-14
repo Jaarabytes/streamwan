@@ -1,12 +1,7 @@
 'use client'
 import Navbar from "@/app/ui/home/Navbar";
-import { googleAuthenticate } from '@/lib/googleAuth'
-import { useFormState } from 'react-dom'
-
 
 export default function Intro(){
-//    const [ googleErrorMsg, googleDispatch ] = useFormState(googleAuthenticate, undefined);
-
     return(
         <>
         <Navbar />

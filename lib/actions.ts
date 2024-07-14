@@ -16,14 +16,19 @@ export async function decrypt (input: string) {
     return payload;
 }
 
-export async function login ( formData: FormData ) {
-    const user = { email: formData.get('email'), password: formData.get('password')}
+export async function login (formData: FormData ) {
+    try {
+        const user = { email: formData.get('email'), password: formData.get('password')}
 
-    // create session
-    const expires = new Date(Date.now() + 1209600 * 1000 ) // 14 days in microseconds
-    const session = await encrypt({ user, expires })
+        // create session
+        const expires = new Date(Date.now() + 1209600 * 1000 ) // 14 days in microseconds
+        const session = await encrypt({ user, expires })
 
-    cookies().set("session", session, { expires, httpOnly: true })
+        cookies().set("session", session, { expires, httpOnly: true })
+    }
+    catch ( err ) {
+        throw err;
+    }
 }
 
 export async function logOut () {

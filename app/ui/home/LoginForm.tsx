@@ -1,15 +1,12 @@
-import {
-  AtSymbolIcon,
-  KeyIcon,
-  ExclamationCircleIcon,
-} from '@heroicons/react/24/outline';
+import { AtSymbolIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { redirect } from 'next/navigation';
 import { login } from '@/lib/actions';
+
 export default function LoginForm() {
   return (
     <form 
-    action={ async ( formData ) => {
+    action={async (formData) => {
       await login(formData)
       redirect("/dashboard")
     }}
