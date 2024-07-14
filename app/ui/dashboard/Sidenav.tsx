@@ -1,27 +1,25 @@
 import Link from "next/link"
-import { FaRegUserCircle } from "react-icons/fa";
-import { FaHome } from "react-icons/fa";
-import { IoCashOutline } from "react-icons/io5";
 import clsx from "clsx";
-import { Md4gPlusMobiledata } from "react-icons/md";
-import { FaPowerOff } from "react-icons/fa";
-import { BiDonateHeart } from "react-icons/bi";
+import { logOut } from "@/lib/actions";
+import { DocumentDuplicateIcon, GiftIcon, HomeIcon, PowerIcon, UserGroupIcon, WifiIcon } from "@heroicons/react/24/outline";
+import { redirect } from "next/navigation";
+
 export default function Sidenav () {
     const links = [
-        { name: 'Home', href: '/dashboard', icon:  FaHome},
+        { name: 'Home', href: '/dashboard', icon:  HomeIcon},
         {
           name: 'Payments',
           href: '/dashboard/payments',
-          icon: IoCashOutline,
+          icon: DocumentDuplicateIcon,
         },
-        { name: 'Profile', href: '/dashboard/profile', icon: FaRegUserCircle},
-        { name: "Donate", href: '/dashboard/donate', icon: BiDonateHeart }
+        { name: 'Profile', href: '/dashboard/profile', icon: UserGroupIcon},
+        { name: "Donate", href: '/dashboard/donate', icon: GiftIcon }
       ];
     return (
         <>
             <div className="h-full flex flex-col px-3 py-4 md:px-2 bg-white">
                 <Link className="mb-2 flex h-20 items-end justify-start rounded-md bg-green-900 p-4 md:h-40" href="/">
-                <Md4gPlusMobiledata className='text-white text-[50px] sm:text-[100px]'/>
+                <WifiIcon className='text-white h-12 w-12'/>
                 </Link>
                 <div className="flex grow justify-between flex-row space-x-2 md:flex-col md:space-x-0 md:space-y-2">
                     {links.map((link) => {
@@ -37,7 +35,7 @@ export default function Sidenav () {
                             },
                             )}
                         >
-                            <LinkIcon className='text-xl inline' />
+                            <LinkIcon className='h-6 w-6 inline' />
                             <p className="hidden md:block">{link.name}</p>
                         </Link>
                         );
@@ -45,10 +43,12 @@ export default function Sidenav () {
                     <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
                     <form action={async () => { 
                     'use server'
+                    await logOut()
+                    redirect('/')
                     }}>
                         <button className="flex h-[48px] w-full grow items-center justify-center gap-2 
                         rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-red-600 hover:text-green-100 md:flex-none md:justify-start md:p-2 md:px-3">
-                            <FaPowerOff className="text-xl" />
+                            <PowerIcon className="h-6 w-6" />
                             <div className="hidden md:block">Sign Out</div>
                         </button>
                     </form>

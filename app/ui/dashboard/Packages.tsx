@@ -1,18 +1,13 @@
 'use client'
 import { toast } from 'react-toastify'
 import { PaystackConsumer } from 'react-paystack';
-import { useInsertionEffect } from "react";
-import Link from 'next/link';
 export default function Packages() {
 
     const items = [
     {
       name: "Basic",
       speed: "5 Mbps",
-      price: {
-        sharing: "2,000 KES/ mo",
-        dedicated: "3,000 KES/ mo",
-      },
+      price: 3000,
       qualities: [
         "Fast web browsing",
         "UHD movie and music streaming",
@@ -22,10 +17,7 @@ export default function Packages() {
     {
       name: "Family",
       speed: "15 Mbps",
-      price: {
-        sharing: "3500 KES/mo",
-        dedicated: "4500 KES/mo",
-      },
+      price: 4500,
       qualities: [
         "Fast web browsing",
         "SD Movie & Music Streaming",
@@ -36,10 +28,7 @@ export default function Packages() {
     {
       name: "Bronze",
       speed: "50 Mbps",
-      price: {
-        sharing: "4500 KES/mo",
-        dedicated: "6000 KES/mo",
-      },
+      price: 6000,
       qualities: [
         "Fast web browsing",
         "SD Movie & Music Streaming",
@@ -51,10 +40,7 @@ export default function Packages() {
     {
       name: "Premium",
       speed: "100 Mbps",
-      price: {
-        sharing: "7500 KES/mo",
-        dedicated: "10000 KES/mo",
-      },
+      price: 7500,
       qualities: [
         "Fast web browsing",
         "UHD Movie & Music Streaming",
@@ -65,14 +51,8 @@ export default function Packages() {
       ],
     },
   ];
-    // Do this, paystack -> prisma -> auth done and dusted
-
-    // Map out all the respective prices
-    // Also there  is an issue on the currency not working
-    // Also, the public key in jipime should just be hardcoded instead of imported from the env file
-    const publicKey ='pk_live_9999378c83331abc0c642f96d2457a5f88969934'
-    //this is honestly a better configuration, let's see if it works
-    const config = { reference: (new Date()).getTime().toString(), email: 'xh3rking96@gmail.com', publicKey: publicKey, amount: 200000 }
+    const publicKey = process.env.PAYSTACK_LIVE_PUBLIC_KEY as string;
+    const config = { reference: (new Date()).getTime().toString(), email: 'xh3rking96@gmail.com', publicKey: publicKey, amount: 2000 * 100 }
     const onSuccess = () => toast.success("Payment sucessful")
     const onClose = () => toast.error("uWu, please don't give up")
     const componentProps = { ...config, text: 'Paystack configuration', onSuccess, onClose };
@@ -91,8 +71,7 @@ export default function Packages() {
             ))}
           </ul>
           <hr />
-          <p className="mt-5 px-3">Sharing: {elem.price.sharing}</p>
-          <p className="mb-5 px-3">Dedicated: {elem.price.dedicated}</p>
+          <p className="my-5 px-3 text-lg"><b>{elem.price}</b> KES per month</p>
           <hr className="my-5" />
           <PaystackConsumer {...componentProps}>{({initializePayment}) =>
           <button onClick={() => initializePayment(onSuccess, onClose)} 
