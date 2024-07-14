@@ -9,7 +9,7 @@ const qualities = ["No more lagging", "Cooperative customer care", "Affordable p
   useEffect(() => {
       const intervalId = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % qualities.length);
-          }, 2500);
+          }, 2600);
 
       return () => clearInterval(intervalId)
       }, [qualities.length])
