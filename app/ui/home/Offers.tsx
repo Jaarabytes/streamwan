@@ -1,15 +1,7 @@
 'use client'
 // use this please
 import { useInsertionEffect } from "react";
-import { signIn } from "next-auth/react";
 export default function Offers() {
-//   const {ref, inView} = useInView({
-//     rootMargin:"-300px 0px -300px 0px",
-//     triggerOnce:true
-//   });
-    const handleSignIn = () => {
-      signIn('google')
-    }
   const items = [
     {
       name: "Basic",
@@ -92,13 +84,14 @@ export default function Offers() {
           <p className="mt-5 px-3">Sharing: {elem.price.sharing}</p>
           <p className="mb-5 px-3">Dedicated: {elem.price.dedicated}</p>
           <hr className="my-5" />
-          
-          <button onClick={() =>handleSignIn}
+          <a href="/sign_up"> 
+          <button
           className={`m-2 px-5 py-3 w-3/4 rounded-lg text-white text-2xl ${elem.name === 'Basic' ? 
           "bg-green-700 hover:bg-green-900 transition duration:500" : elem.name === "Family" ? 
           "bg-pink-500 hover:bg-pink-700 transition duration:500" : elem.name === "Bronze" ? 
           "bg-amber-500 hover:bg-amber-600 transition duration:500" : 
           "bg-blue-900 hover:bg-slate-800 transition duration:500"}`}>Purchase</button>
+          </a>
         </div>
       ))}
     </div>

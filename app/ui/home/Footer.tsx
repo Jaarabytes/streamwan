@@ -9,24 +9,24 @@ export default function Footer() {
       <h1 className="text-xl font-extrabold my-5"><a href="/">StreamWan</a></h1>
       <div>
         <h3 className="text-lg font-bold text-slate-300 mt-5">PRODUCT:</h3>
-        <Link target="_blank" rel="noreferrer" href={`/trial`}  className="block my-3">Pricing</Link>
-        <Link target="_blank" rel="noreferrer" href={`/faqs`}   className="block my-3">FAQs</Link>
+        <Link href={`/trial`}  className="block my-3">Pricing</Link>
+        <Link href={`/faqs`}   className="block my-3">FAQs</Link>
       </div>
       <div>
         <h2 className="text-lg font-bold text-slate-300 mt-5">ABOUT:</h2>
-        <Link target="_blank" rel="noreferrer" href={`/privacy`} className="block my-3">Privacy</Link>
-        <Link target="_blank" rel="noreferrer" href={`/faqs`} className="block my-3">Company</Link>
+        <Link href={`/privacy`} className="block my-3">Privacy</Link>
+        <Link href={`/faqs`} className="block my-3">Company</Link>
       </div>
       <div className="block">
         <h1 className="text-lg font-bold text-slate-300 mt-5">CONTACT:</h1>
-        <Link target="_blank" rel="noreferrer" href="https://twitter.com/jaarabytes" className="block my-3">Twitter</Link>
-        <Link target="_blank" rel="noreferrer" href="mailto:xh3rking96@gmail.com" className="block my-3">Mail</Link>
-        <Link target="_blank" rel="noreferrer" href="https://github.com/jaarabytes" className="block my-3">Github</Link>
+        <Link href="https://twitter.com/jaarabytes" className="block my-3">Twitter</Link>
+        <Link href="mailto:xh3rking96@gmail.com" className="block my-3">Mail</Link>
+        <Link href="https://github.com/jaarabytes" className="block my-3">Github</Link>
       </div>
       <div className="block">
         <h1 className="text-lg font-bold text-slate-300 mt-5">LEGAL:</h1>
-        <Link target="_blank" rel="noreferrer" href={`/privacy`}  className="block my-3">Terms of service</Link>
-        <Link target="_blank" rel="noreferrer" href={`/privacy`}  className="block my-3">Privacy policy</Link>
+        <Link href={`/privacy`}  className="block my-3">Terms of service</Link>
+        <Link href={`/privacy`}  className="block my-3">Privacy policy</Link>
       </div>
       </div>
       <footer className="text-center bg-green-900 text-slate-400 pb-10">© 2024 StreamWan, Inc.</footer>
