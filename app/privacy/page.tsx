@@ -40,15 +40,15 @@ export default function PrivacyPage () {
 
     return (
         <>
-            <div className="px-[13%] sm:my-24">
+            <div className="px-5 sm:px-[13%] sm:my-24">
                 <div className="text-center">
-                    <h1 className="text-green-900 font-extrabold text-[60px]">Privacy policy</h1>
-                    <p className="text-slate-300 my-5">Last updated: 14 th May 2024</p>
+                    <h1 className="text-green-900 font-extrabold text-[40px] sm:text-[60px]">Privacy policy</h1>
+                    <p className="text-slate-900 my-5 font-bold">Last updated: 14th May 2024</p>
 
                     <p className="mb-10">Thank you for using Streamwan! This Privacy Policy explains how we collect, use, and protect your personal information when you use our platform.</p>
                 </div>
 
-                <div className="px-[20%] my-5">
+                <div className="px-5 sm:px-[20%] my-5">
                     {/* Map them out here */}
                     {policies.map(( element, index ) => (
                         <div key={index}>

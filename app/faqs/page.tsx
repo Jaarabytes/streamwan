@@ -39,9 +39,9 @@ export default function FAQs() {
 
   return (
     <>
-    <div className=" px-[10%]">
+    <div className="px-5 sm:px-[10%]">
       <h1 className="text-green-900 font-bold text-3xl m-10">Frequently asked questions: </h1>
-      <div className="grid grid-rows-4 grid-flow-col">
+      <div className="sm:grid sm:grid-rows-4 sm:grid-flow-col">
       {items.map((item, index) => (
         <div key={index} className="m-10">
           <h4 className="text-lg my-5 font-bold">{item.question}</h4>
