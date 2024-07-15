@@ -4,7 +4,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import pool from "./db";
-import bcrypt from "bcrypt"
+const argon2 = require('argon2')
 
 const secretKey = process.env.AUTH_SECRET as string;
 const key = new TextEncoder().encode(secretKey);
@@ -24,13 +24,13 @@ export async function login (formData: FormData ) {
         const client = await pool.connect();
         console.log("successfully conencted to the db")
         // check if user exists in the database
-        const hashedPassword = await bcrypt.hash(user.password as string, 10);
+        const hashedPassword = await argon2.hash(user.password as string);
         console.log(`Hashed password is ${hashedPassword}`)
         const { rows } = await client.query(`SELECT * FROM users WHERE email = $1`, [user.email])
         if ( rows.length === 0 ) return "User not found"
         const storedPassword = rows[0].password;
         console.log(`Stored password is ${storedPassword}`)
-        const isPasswordValid = await bcrypt.compare(hashedPassword, storedPassword)
+        const isPasswordValid = await argon2.verify(hashedPassword, storedPassword)
         // will encrypt this inot the session cookies.
         const userId = rows[0].id;
 
@@ -58,7 +58,7 @@ export async function signUp (formData: FormData ) {
         const client = await pool.connect();
         const { rows } = await client.query(`SELECT * FROM users WHERE email = $1`, [user.email])
         if ( !rows[0].email ) {
-            const hashedPassword = await bcrypt.hash(user.password as string, 10);
+            const hashedPassword = await argon2.hash(user.password as string);
             await client.query(`INSERT INTO users (email, hashedPassword) VALUES ($1, $2)`, [user.email, hashedPassword])
             const expires = new Date(Date.now() + 1209600 * 1000 ) // 14 days in microseconds
             const userId = rows[0].id;

@@ -3,7 +3,8 @@ const { Pool } = require('pg')
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL
 })
-const bcrypt = require('bcrypt')
+const argon2 = require('argon2')
+
 async function seedUsers ( client ) {
     try {
         const createTable = `CREATE TABLE IF NOT EXISTS users (
@@ -14,8 +15,8 @@ async function seedUsers ( client ) {
         await client.query(createTable);
         console.log(`Successfully created the Users table`)
         const query = `INSERT INTO users (email, password) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET password = EXCLUDED.password RETURNING id`
-        await client.query(query, ['user@nextmail.com', await bcrypt.hash('123456', 10)])
-        await client.query(query, ['xavierandole@gmail.com', await bcrypt.hash('helloworld', 10)])
+        await client.query(query, ['user@nextmail.com', await argon2.hash('123456')])
+        await client.query(query, ['xavierandole@gmail.com', await argon2.hash('helloworld')])
         const { rows } = await client.query(`SELECT * FROM users`)
         console.log("All users include")
         for ( const user of rows ) {
