@@ -8,7 +8,7 @@ export default function Donate () {
     const publicKey = process.env.PAYSTACK_LIVE_PUBLIC_KEY as string;
     const config = { reference: (new Date()).getTime().toString(), currency: "KES", email: 'xh3rking96@gmail.com', publicKey: publicKey, amount: amount * 100 }
     const onSuccess = () => toast.success("Payment sucessful")
-    const onClose = () => toast.error("uWu, please don't give up")
+    const onClose = () => console.log("No don't leave")
     const componentProps = { ...config, text: 'Paystack configuration', onSuccess, onClose };
     return (
             <>
