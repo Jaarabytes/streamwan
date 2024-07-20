@@ -4,7 +4,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import pool from "./db";
-const argon2 = require('argon2')
+import * as argon2 from 'argon2'
 
 const secretKey = process.env.AUTH_SECRET as string;
 const key = new TextEncoder().encode(secretKey);

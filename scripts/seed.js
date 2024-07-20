@@ -20,7 +20,7 @@ async function seedUsers ( client ) {
         const { rows } = await client.query(`SELECT * FROM users`)
         console.log("All users include")
         for ( const user of rows ) {
-            console.log(`${user.email}'s password is ${user.password}`)
+            console.log(`${user.email}'s id is ${user.id} and his/her password is ${user.password}`)
         }
         console.log(`Successfully seeded the Users table`)
     }
@@ -44,10 +44,10 @@ async function seedPayments ( client ) {
         VALUES ($1, $2, $3);
     `;
 
-        await client.query(query, ['985983434235346945', 10000.0, '2024-07-14'])
-        await client.query(query, ['985983434235346945', 3500.0, '2012-03-19'])
-        await client.query(query, ['985983439156379649', 100.0, '2014-03-14'])
-        await client.query(query, ['985983439156379649', 10000.0, '2020-12-12'])       
+        await client.query(query, ['987649370104168449', 10000.0, '2024-07-14'])
+        await client.query(query, ['987649370104168449', 3500.0, '2012-03-19'])
+        await client.query(query, ['987649371996225537', 100.0, '2014-03-14'])
+        await client.query(query, ['987649371996225537', 10000.0, '2020-12-12'])       
 
         console.log(`Successfully seeded the Payments table`)        
     }
