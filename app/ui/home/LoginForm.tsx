@@ -1,9 +1,10 @@
 import { AtSymbolIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { redirect } from 'next/navigation';
-import { login } from '@/lib/actions';
+import { getSession, login } from '@/lib/actions';
 
-export default function LoginForm() {
+export default async function LoginForm() {
+  const session = await getSession();
   return (
     <form 
     action={async (formData) => {
@@ -24,6 +25,7 @@ export default function LoginForm() {
               Email
             </label>
             <div className="relative">
+            <pre>{JSON.stringify(session, null, 2)}</pre>
               <input
                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="email"

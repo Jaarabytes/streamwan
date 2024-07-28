@@ -4,7 +4,7 @@ import { logOut } from "@/lib/actions";
 import { DocumentDuplicateIcon, GiftIcon, HomeIcon, PowerIcon, UserGroupIcon, WifiIcon } from "@heroicons/react/24/outline";
 import { redirect } from "next/navigation";
 
-export default function Sidenav () {
+export default async function Sidenav () {
     const links = [
         { name: 'Home', href: '/dashboard', icon:  HomeIcon},
         {
@@ -47,7 +47,7 @@ export default function Sidenav () {
                     redirect('/')
                     }}>
                         <button className="flex h-[48px] w-full grow items-center justify-center gap-2 
-                        rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-red-600 hover:text-green-100 md:flex-none md:justify-start md:p-2 md:px-3">
+                        rounded-md bg-gray-50 p-3 text-sm text-black font-medium hover:bg-red-600 hover:text-green-100 md:flex-none md:justify-start md:p-2 md:px-3">
                             <PowerIcon className="h-6 w-6" />
                             <div className="hidden md:block">Sign Out</div>
                         </button>

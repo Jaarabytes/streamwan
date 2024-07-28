@@ -7,13 +7,20 @@ import pool from "./db";
 import * as argon2 from 'argon2'
 
 const secretKey = process.env.AUTH_SECRET as string;
+console.log(`Secret Key is ${secretKey}`)
+
+if ( !secretKey ) {
+  console.log(`Error, secretKey is missing`)
+  throw new Error("Error, secretKey is missing");
+}
+
 const key = new TextEncoder().encode(secretKey);
 
 export async function encrypt ( payload: any) {
     return await new SignJWT(payload).setProtectedHeader({alg: "HS256"}).setIssuedAt().setExpirationTime('14 days from now').sign(key);
 }
 
-export async function decrypt (input: string) {
+export async function decrypt (input: string): Promise<any> {
     const { payload } = await jwtVerify(input, key, { algorithms: ["HS256"]});
     return payload;
 }
@@ -24,13 +31,11 @@ export async function login (formData: FormData ) {
         const client = await pool.connect();
         console.log("successfully conencted to the db")
         // check if user exists in the database
-        const hashedPassword = await argon2.hash(user.password as string);
-        console.log(`Hashed password is ${hashedPassword}`)
         const { rows } = await client.query(`SELECT * FROM users WHERE email = $1`, [user.email])
         if ( rows.length === 0 ) return "User not found"
         const storedPassword = rows[0].password;
         console.log(`Stored password is ${storedPassword}`)
-        const isPasswordValid = await argon2.verify(hashedPassword, storedPassword)
+        const isPasswordValid = await argon2.verify(storedPassword, user.password as string)
         // will encrypt this inot the session cookies.
         const userId = rows[0].id;
 
@@ -57,7 +62,7 @@ export async function signUp (formData: FormData ) {
         const user = { email: formData.get('email'), password: formData.get('password')}
         const client = await pool.connect();
         const { rows } = await client.query(`SELECT * FROM users WHERE email = $1`, [user.email])
-        if ( !rows[0].email ) {
+        if ( rows.length === 0 ) {
             const hashedPassword = await argon2.hash(user.password as string);
             await client.query(`INSERT INTO users (email, hashedPassword) VALUES ($1, $2)`, [user.email, hashedPassword])
             const expires = new Date(Date.now() + 1209600 * 1000 ) // 14 days in microseconds
@@ -102,7 +107,7 @@ export async function getSession () {
 
 export async function updateSession ( request: NextRequest ) {
     const session = request.cookies.get('session')?.value;
-    if ( !session ) return null;
+    if ( !session ) return;
 
     const parsed = await decrypt(session);
     parsed.expires = new Date(Date.now() + 1209600 * 1000 )
@@ -112,7 +117,7 @@ export async function updateSession ( request: NextRequest ) {
         name: "session",
         value: await encrypt(parsed),
         httpOnly: true,
-        expires: parsed.expires as number
+        expires: parsed.expires as Date
     })
 
     return res;
