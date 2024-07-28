@@ -7,7 +7,7 @@ We are committed to uptime, same-day installation, exemplary customer service an
 
 To reach us:
 * [our website](https://streamwan.vercel.app)
-* [contact page](https://streamwan.vercel.app/contact-us)
+* [contact page](https://streamwan.vercel.app/contact)
 * [donations](https://streamwan.vercel.app/donate)
 
 ## Installation 
@@ -18,7 +18,7 @@ Prerequisites:
 
 After obtaining the various keys, You can run:
 ```bash
-mkdir streamwan && cd streamwan
+git clone https://github.com/jaarabytes/streamwan.git
 npm install 
 npm run dev
 ```
