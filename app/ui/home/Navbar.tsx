@@ -9,7 +9,7 @@ export default function Navbar(){
     }
 
     const navItems = [{name: "Pricing", link: "/pricing"}, {name: "Login", link: "/login"}]
-    
+      
     return(
         <nav className={`p-4 flex justify-between items-center sticky top-0 shadow-lg z-50 bg-slate-200`}>
 
