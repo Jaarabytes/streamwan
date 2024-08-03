@@ -1,10 +1,15 @@
 'use server'
 
-import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import pool from "./db";
 import * as argon2 from 'argon2'
+import { jwtVerify, JWTPayload as JoseJWTPayload, SignJWT } from "jose";
+
+interface CustomJWTPayload extends JoseJWTPayload {
+  expires: string | Date;
+  [key: string]: any;
+}
 
 const secretKey = process.env.AUTH_SECRET as string;
 console.log(`Secret Key is ${secretKey}`)
@@ -15,14 +20,15 @@ if ( !secretKey ) {
 }
 
 const key = new TextEncoder().encode(secretKey);
+const SESSION_EXPIRATION = 14 * 24 * 60 * 60 * 1000;
 
 export async function encrypt ( payload: any) {
     return await new SignJWT(payload).setProtectedHeader({alg: "HS256"}).setIssuedAt().setExpirationTime('14 days from now').sign(key);
 }
 
-export async function decrypt (input: string): Promise<any> {
-    const { payload } = await jwtVerify(input, key, { algorithms: ["HS256"]});
-    return payload;
+export async function decrypt(input: string): Promise<CustomJWTPayload> {
+  const { payload } = await jwtVerify(input, key, { algorithms: ["HS256"] });
+  return payload as CustomJWTPayload;
 }
 
 export async function login (formData: FormData ) {
@@ -42,17 +48,18 @@ export async function login (formData: FormData ) {
         if ( isPasswordValid ) {
             console.log("Successful user authentication. ")
             // create session
-            const expires = new Date(Date.now() + 1209600 * 1000 ) // 14 days in microseconds
+            const expires = new Date(Date.now() + SESSION_EXPIRATION )
             const session = await encrypt({ userId, expires })
 
             cookies().set("session", session, { expires, httpOnly: true })
+            console.log(`Successful login`)
         }
         else {
             return "Invalid Credentials"
         }
     }
     catch ( err ) {
-        throw err;
+        console.log(`Error when logging in: ${err}`)
     }
 }
 
@@ -62,18 +69,20 @@ export async function signUp (formData: FormData ) {
         const user = { email: formData.get('email'), password: formData.get('password')}
         const client = await pool.connect();
         const { rows } = await client.query(`SELECT * FROM users WHERE email = $1`, [user.email])
-        if ( rows.length === 0 ) {
+        if ( rows.length > 0 ) {
+          return "User already exists"
+        }
             const hashedPassword = await argon2.hash(user.password as string);
-            await client.query(`INSERT INTO users (email, hashedPassword) VALUES ($1, $2)`, [user.email, hashedPassword])
-            const expires = new Date(Date.now() + 1209600 * 1000 ) // 14 days in microseconds
-            const userId = rows[0].id;
+            const result = await client.query(`INSERT INTO users (email, hashedPassword) VALUES ($1, $2)`, [user.email, hashedPassword])
+            const userId = result.rows[0].id;
+            const expires = new Date(Date.now() + SESSION_EXPIRATION )
             const session = await encrypt({ userId, expires })
 
             cookies().set("session", session, { expires, httpOnly: true })
-        }
+            return "Sign up successful"
     }
     catch ( error ) {
-        throw error;
+        console.log(`Error during signup: ${error}`)
     }
 }
 
@@ -105,20 +114,46 @@ export async function getSession () {
     return await decrypt(session);
 }
 
-export async function updateSession ( request: NextRequest ) {
-    const session = request.cookies.get('session')?.value;
-    if ( !session ) return;
 
-    const parsed = await decrypt(session);
-    parsed.expires = new Date(Date.now() + 1209600 * 1000 )
-    const res = NextResponse.next();
+export async function updateSession(request: NextRequest) {
+  const session = request.cookies.get('session')?.value;
+  if (!session) return;
 
-    res.cookies.set({
+  try {
+    const parsed = await decrypt(session) as CustomJWTPayload;
+    
+    if (typeof parsed.expires !== 'string' && !(parsed.expires instanceof Date)) {
+      throw new Error('Invalid expires value');
+    }
+
+    const expiresDate = new Date(parsed.expires);
+
+    if (isNaN(expiresDate.getTime())) {
+      throw new Error('Invalid expiration date');
+    }
+
+    // Only update if the session is about to expire
+    if (expiresDate.getTime() - Date.now() < 24 * 60 * 60 * 1000) { // Less than 1 day left
+      parsed.expires = new Date(Date.now() + SESSION_EXPIRATION);
+      const res = NextResponse.next();
+      res.cookies.set({
         name: "session",
         value: await encrypt(parsed),
         httpOnly: true,
-        expires: parsed.expires as Date
-    })
-
+        expires: parsed.expires
+      });
+      return res;
+    }
+  } catch (error) {
+    console.error("Error updating session:", error);
+    // Clear the invalid session
+    const res = NextResponse.next();
+    res.cookies.set({
+      name: "session",
+      value: "",
+      expires: new Date(0)
+    });
     return res;
+  }
 }
+

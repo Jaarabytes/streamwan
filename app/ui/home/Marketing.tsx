@@ -1,10 +1,6 @@
 'use client'
 import Image from "next/image";
-import { signIn } from "next-auth/react";
 export default function Marketing () {
-    const handleSignIn = () => {
-        signIn('google')
-    }
   return (
     <>
         <div className='sm:my-48'>
@@ -15,7 +11,7 @@ export default function Marketing () {
                         Join thousands of satisfied customers and transform your online experience now!
                     </p>
                     
-                        <button onClick={() =>handleSignIn}
+                        <button
                         className="w-full sm:w-1/4 bg-green-900 text-xl my-5 rounded-lg text-white hover:bg-green-800 transition duration:500"
                         style={{
                             paddingBlock: "10px",
@@ -48,7 +44,7 @@ export default function Marketing () {
                     We take full responsibility for problems encountered along the way. 
                     </p>
                     
-                        <button onClick={() =>handleSignIn}
+                        <button
                         className="w-full sm:w-1/4 bg-green-900 my-5 text-xl rounded-lg text-white hover:bg-green-800 transition duration:500"
                             style={{
                                 paddingBlock: "10px",

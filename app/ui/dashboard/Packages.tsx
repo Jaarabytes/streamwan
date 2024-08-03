@@ -1,5 +1,4 @@
 'use client'
-import { toast } from 'react-toastify'
 import { PaystackConsumer } from 'react-paystack';
 export default function Packages() {
 
@@ -53,8 +52,8 @@ export default function Packages() {
   ];
     const publicKey = 'pk_live_9999378c83331abc0c642f96d2457a5f88969934';
     const config = { reference: (new Date()).getTime().toString(), email: 'xh3rking96@gmail.com', currency: "KES", publicKey: publicKey, amount: 2000 * 100 }
-    const onSuccess = () => toast.success("Payment sucessful")
-    const onClose = () => toast.error("uWu, please don't give up")
+    const onSuccess = () => alert("Payment sucessful")
+    const onClose = () => alert("uWu, please don't give up")
     const componentProps = { ...config, text: 'Paystack configuration', onSuccess, onClose };
   return (
     <div className="grid md:grid-cols-4 gap-4 px-5 min-h-full sm:grid-cols-2 grid-cols-1 mb-10">
