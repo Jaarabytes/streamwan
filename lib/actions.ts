@@ -49,11 +49,6 @@ export async function login ( prevState: undefined | string, formData: FormData 
         const isPasswordValid = (storedPassword == hashedPassword)
         // will encrypt this inot the session cookies.
         const userId = rows[0].id;
-
-        if ( !isPasswordValid ) {
-          console.log(`Incorrect password`);
-          // find a way to return using nextjs
-        }
         if ( isPasswordValid ) {
             console.log("Successful user authentication. ")
             // create session
@@ -150,7 +145,7 @@ export async function fetchMail (userId: number) {
     const userMail = rows[0].email
     console.log(`User email is ${userMail}`)
     if ( userMail ) {
-      return userMail
+      return userMail.split('@')[0]
     }
     return "Failed operation"
   }

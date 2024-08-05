@@ -73,7 +73,7 @@ export default async function LoginForm() {
 function LoginButton() {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" className="mt-4 bg-green-700 w-full text-white rounded-lg py-3 hover:bg-green-600">
+    <button type="submit" className="mt-4 bg-green-700 w-full text-white rounded-lg py-3 hover:bg-green-600 font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 active:bg-green-800 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 ">
       Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50 inline" />
     </button>
   );
