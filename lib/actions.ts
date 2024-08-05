@@ -133,9 +133,6 @@ export async function fetchPayment ( userId: number ) {
   try {
       const client = await pool.connect()
       const { rows } = await client.query(`SELECT * FROM payments WHERE user_id = $1 ORDER BY date DESC`, [userId]);
-      if ( rows.length === 0 ) {
-        return {message: "No payments for this user"}
-  }
       return rows;
   }
   catch ( error ) {

@@ -4,7 +4,7 @@ import { login } from '@/lib/actions';
 import { useFormState, useFormStatus } from 'react-dom';
 
 export default async function LoginForm() {
-  const [ errorMessage, login ] = useFormState(dispatch, undefined);
+  const [ errorMessage, dispatch ] = useFormState(login, undefined);
   return (
     <form 
     action={dispatch}
@@ -62,7 +62,7 @@ export default async function LoginForm() {
         >
         {errorMessage && <>
           <ExclamationCircleIcon className='text-red-500 h-5 w-5' />
-          <p className='text-red-500 font-bold'>{errorMessage}</p>
+          <p className='text-red-500 text-sm font-bold'>{errorMessage}</p>
           </>}
         </div>
       </div>
