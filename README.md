@@ -32,9 +32,3 @@ Steps:
 - Open a pull request (make it short and concise as possible)
 
 Thank you all !
-
-## TODO
-
-- Add session expiration
-- Why doesn't nextJS return stuff such as form errors
-- Why user is redirected inside app without session cookie
