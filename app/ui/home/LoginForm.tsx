@@ -1,16 +1,12 @@
 import { AtSymbolIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
-import { redirect } from 'next/navigation';
-import { getSession, login } from '@/lib/actions';
+import { login } from '@/lib/actions';
 
 export default async function LoginForm() {
-  const session = await getSession();
   return (
     <form 
     action={async (formData) => {
-      'use server'
       await login(formData)
-      redirect("/dashboard")
     }}
     className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">

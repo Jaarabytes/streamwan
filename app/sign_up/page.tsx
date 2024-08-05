@@ -1,3 +1,4 @@
+'use client'
 import SignUpForm from "../ui/home/SignUpForm"; 
 
 export default function SignUpPage() {

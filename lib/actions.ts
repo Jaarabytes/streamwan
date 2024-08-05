@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import pool from "./db";
 import { jwtVerify, JWTPayload as JoseJWTPayload, SignJWT } from "jose";
+import { redirect } from 'next/navigation'
 
 interface CustomJWTPayload extends JoseJWTPayload {
   expires: string | Date;
@@ -60,6 +61,7 @@ export async function login (formData: FormData ) {
 
             cookies().set("session", session, { expires, httpOnly: true })
             console.log(`Successful login`)
+            redirect('/dashboard')
         }
         else {
             return "Invalid Credentials"
@@ -87,7 +89,8 @@ export async function signUp (formData: FormData ) {
             const session = await encrypt({ userId, expires })
 
             cookies().set("session", session, { expires, httpOnly: true })
-            return "Sign up successful"
+            console.log("Sign up successful")
+            redirect('/dashboard')
     }
     catch ( error ) {
         console.log(`Error during signup: ${error}`)
