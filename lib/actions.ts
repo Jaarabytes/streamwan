@@ -49,24 +49,24 @@ export async function login ( prevState: undefined | string, formData: FormData 
         const isPasswordValid = (storedPassword == hashedPassword)
         // will encrypt this inot the session cookies.
         const userId = rows[0].id;
-        if ( isPasswordValid ) {
-            console.log("Successful user authentication. ")
-            // create session
-            const expires = new Date(Date.now() + SESSION_EXPIRATION )
-            const session = await encrypt({ userId, expires })
+        if ( !isPasswordValid ) {
+            console.log(`Invalid credentials`)
+            throw new Error(`Invalid credentials`)
+        }
+        console.log("Successful user authentication. ")
+        // create session
+        const expires = new Date(Date.now() + SESSION_EXPIRATION )
+        const session = await encrypt({ userId, expires })
 
-            cookies().set("session", session, { expires, httpOnly: true })
-            console.log(`Successful login`)
-            redirect('/dashboard')
-        }
-        else {
-            return "Invalid Credentials"
-        }
-    }
+        cookies().set("session", session, { expires, httpOnly: true })
+        console.log(`Successful login`)
+  }
     catch ( err ) {
         console.log(`Error when logging in: ${err}`)
         return(`Error when logging in: ${err}`)
     }
+        // turns out the redirect should be placed outside the try catch block
+        redirect('/dashboard')
 }
 
 export async function signUp ( prevState: string | undefined, formData: FormData ) {
@@ -76,23 +76,24 @@ export async function signUp ( prevState: string | undefined, formData: FormData
         const client = await pool.connect();
         const { rows } = await client.query(`SELECT * FROM users WHERE email = $1`, [user.email])
         if ( rows.length > 0 ) {
-          return "User already exists"
+          throw new Error("User already exists")
         } 
             const hashedPassword = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(user.password as string)))).map(byte => byte.toString(16).padStart(2,'0')).join('');
             console.log(`Hashed Password is ${hashedPassword}`)
-            const result = await client.query(`INSERT INTO users (email, hashedPassword) VALUES ($1, $2)`, [user.email, hashedPassword])
+            const result = await client.query(`INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id`, [user.email, hashedPassword])
             const userId = result.rows[0].id;
+            console.log(`User id is ${userId}`)
             const expires = new Date(Date.now() + SESSION_EXPIRATION )
             const session = await encrypt({ userId, expires })
 
             cookies().set("session", session, { expires, httpOnly: true })
             console.log("Sign up successful")
-            redirect('/dashboard')
     }
     catch ( error ) {
         console.log(`Error during signup: ${error}`)
         return(`Error during signup: ${error}`)
     }
+            redirect('/dashboard')
 }
 
 export async function createPayment ( payment: number ) {
@@ -102,12 +103,12 @@ export async function createPayment ( payment: number ) {
          const userId = decrypt(session);
          // avoid broke people
          if ( payment <= 0 ) {
-           return "Please add more money"
+           throw new Error("Please add more money")
          }
          const client = await pool.connect()
          const { rows } = await client.query(`SELECT * FROM users WHERE id = $1`, [userId])
          if ( rows.length === 0 ) {
-           return "User not found"
+           throw new Error("User not found")
          }
          const result = await client.query(`INSERT INTO payments (user_id, amount, date) VALUES ($1, $2, $3) RETURNING id`, [userId, payment, new Date()])
          if ( result ) {
