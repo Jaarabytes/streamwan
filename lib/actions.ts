@@ -69,6 +69,7 @@ export async function login (formData: FormData ) {
     }
     catch ( err ) {
         console.log(`Error when logging in: ${err}`)
+        return(`Error when logging in: ${err}`)
     }
 }
 
@@ -94,6 +95,7 @@ export async function signUp (formData: FormData ) {
     }
     catch ( error ) {
         console.log(`Error during signup: ${error}`)
+        return(`Error during signup: ${error}`)
     }
 }
 
@@ -120,7 +122,8 @@ export async function createPayment ( payment: number ) {
          return "Payment creation failed"
      }
      catch ( error ) {
-         throw error;
+        console.log(`Error when creating payment: ${error}`)
+        return(`Error when creating payment: ${error}`)
      }
 }
 
