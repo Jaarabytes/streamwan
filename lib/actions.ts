@@ -82,6 +82,7 @@ export async function signUp ( prevState: string | undefined, formData: FormData
             console.log(`Hashed Password is ${hashedPassword}`)
             const result = await client.query(`INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id`, [user.email, hashedPassword])
             const userId = result.rows[0].id;
+            
             console.log(`User id is ${userId}`)
             const expires = new Date(Date.now() + SESSION_EXPIRATION )
             const session = await encrypt({ userId, expires })
@@ -115,6 +116,7 @@ export async function createPayment ( payment: number ) {
            console.log(`Successfully created payment`)
            return {success: true, message: "Payment created successfully", paymentId: result.rows[0].id}
          }
+         
          console.log("Payment creation failed")
          revalidatePath('/dashboard')
          return "Payment creation failed"
@@ -129,6 +131,7 @@ export async function fetchPayment ( userId: number ) {
   try {
       const client = await pool.connect()
       const { rows } = await client.query(`SELECT * FROM payments WHERE user_id = $1 ORDER BY date DESC`, [userId]);
+     
       return rows;
   }
   catch ( error ) {
@@ -144,6 +147,7 @@ export async function fetchMail (userId: number) {
     const { rows } = await client.query(`SELECT email FROM users WHERE id = $1`, [userId])
     if ( rows.length === 0 ) return "Seems you do not exist"
     const userMail = rows[0].email
+   
     console.log(`User email is ${userMail}`)
     if ( userMail ) {
       return userMail.split('@')[0]

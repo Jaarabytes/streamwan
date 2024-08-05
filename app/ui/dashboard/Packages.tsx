@@ -50,7 +50,7 @@ export default function Packages() {
     },
   ];
     const publicKey = process.env.PAYSTACK_LIVE_PUBLIC_KEY as string;
-    const config = { reference: (new Date()).getTime().toString(), email: 'xh3rking96@gmail.com', currency: "KES", publicKey: publicKey, amount: 2000 * 100 }
+    const config = { email: 'xh3rking96@gmail.com', currency: "KES", publicKey: publicKey, amount: 2000 * 100 }
     const onSuccess = () => alert("Payment sucessful")
     const onClose = () => alert("uWu, please don't give up")
     const componentProps = { ...config, text: 'Paystack configuration', onSuccess, onClose };
