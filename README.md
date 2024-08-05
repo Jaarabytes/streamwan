@@ -13,14 +13,14 @@ To reach us:
 ## Installation 
 
 Prerequisites:
-- Node and Node Package Manager installed
+- Pnpm installed
 - API keys, (they are clearly defined in the `.env.example` file)
 
 After obtaining the various keys, You can run:
 ```bash
 git clone https://github.com/jaarabytes/streamwan.git
-npm install 
-npm run dev
+pnpm install 
+pnpm run dev
 ```
 
 ## Contributions
@@ -32,3 +32,9 @@ Steps:
 - Open a pull request (make it short and concise as possible)
 
 Thank you all !
+
+## TODO
+
+- Add session expiration
+- Why doesn't nextJS return stuff such as form errors
+- Why user is redirected inside app without session cookie

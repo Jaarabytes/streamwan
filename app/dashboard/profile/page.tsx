@@ -1,9 +1,11 @@
+import { fetchMail, getSession } from "@/lib/actions"
 
 export default async function ProfilePage () {
-
-    return (
+  const session = await getSession();
+  const userMail = await fetchMail(session)
+  return (
             <>
-            <h1 className="text-green-900 font-bold text-3xl">Hello, </h1>
+            <h1 className="text-green-900 font-bold text-3xl">Hello, <span>{userMail}</span></h1>
             <p className="my-5">We thank you for using our services and being a content customer</p>
             <hr />
 

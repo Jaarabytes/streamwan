@@ -1,5 +1,3 @@
-"use client";
-
 import LoginForm from "../ui/home/LoginForm";
 
 export default function Login() {

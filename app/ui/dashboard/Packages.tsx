@@ -1,7 +1,6 @@
 'use client'
 import { PaystackConsumer } from 'react-paystack';
 export default function Packages() {
-
     const items = [
     {
       name: "Basic",
@@ -50,7 +49,7 @@ export default function Packages() {
       ],
     },
   ];
-    const publicKey = 'pk_live_9999378c83331abc0c642f96d2457a5f88969934';
+    const publicKey = process.env.PAYSTACK_LIVE_PUBLIC_KEY as string;
     const config = { reference: (new Date()).getTime().toString(), email: 'xh3rking96@gmail.com', currency: "KES", publicKey: publicKey, amount: 2000 * 100 }
     const onSuccess = () => alert("Payment sucessful")
     const onClose = () => alert("uWu, please don't give up")

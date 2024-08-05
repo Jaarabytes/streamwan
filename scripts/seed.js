@@ -1,9 +1,9 @@
-
 const { Pool } = require('pg')
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL
 })
-const argon2 = require('argon2')
+
+const encoder = new TextEncoder();
 
 async function seedUsers ( client ) {
     try {
@@ -15,8 +15,11 @@ async function seedUsers ( client ) {
         await client.query(createTable);
         console.log(`Successfully created the Users table`)
         const query = `INSERT INTO users (email, password) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET password = EXCLUDED.password RETURNING id`
-        await client.query(query, ['user@nextmail.com', await argon2.hash('123456')])
-        await client.query(query, ['xavierandole@gmail.com', await argon2.hash('helloworld')])
+        // Look at what a terrible JS framework can make a man do
+        const tihihi = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", encoder.encode('123456')))).map(byte => byte.toString(16).padStart(2, '0')).join("")
+        console.log(`tihihi is ${tihihi}`)
+        await client.query(query, ['user@nextmail.com', Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode('123456')))).map(byte => byte.toString(16).padStart(2,'0')).join('')])
+        await client.query(query, ['xavierandole@gmail.com', Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",encoder.encode('helloworld')))).map(byte => byte.toString(16).padStart(2,'0')).join('')])
         const { rows } = await client.query(`SELECT * FROM users`)
         console.log("All users include")
         for ( const user of rows ) {

@@ -3,7 +3,6 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import pool from "./db";
-import * as argon2 from 'argon2'
 import { jwtVerify, JWTPayload as JoseJWTPayload, SignJWT } from "jose";
 
 interface CustomJWTPayload extends JoseJWTPayload {
@@ -21,6 +20,7 @@ if ( !secretKey ) {
 
 const key = new TextEncoder().encode(secretKey);
 const SESSION_EXPIRATION = 14 * 24 * 60 * 60 * 1000;
+const encoder = new TextEncoder()
 
 export async function encrypt ( payload: any) {
     return await new SignJWT(payload).setProtectedHeader({alg: "HS256"}).setIssuedAt().setExpirationTime('14 days from now').sign(key);
@@ -28,6 +28,7 @@ export async function encrypt ( payload: any) {
 
 export async function decrypt(input: string): Promise<CustomJWTPayload> {
   const { payload } = await jwtVerify(input, key, { algorithms: ["HS256"] });
+  console.log(`Payload decoded is ${JSON.stringify(payload as CustomJWTPayload)}`)
   return payload as CustomJWTPayload;
 }
 
@@ -41,10 +42,16 @@ export async function login (formData: FormData ) {
         if ( rows.length === 0 ) return "User not found"
         const storedPassword = rows[0].password;
         console.log(`Stored password is ${storedPassword}`)
-        const isPasswordValid = await argon2.verify(storedPassword, user.password as string)
+        const hashedPassword = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(user.password as string)))).map(byte => byte.toString(16).padStart(2, '0')).join('')
+        console.log(`hashedPassword is ${hashedPassword}`)
+        const isPasswordValid = (storedPassword == hashedPassword)
         // will encrypt this inot the session cookies.
         const userId = rows[0].id;
 
+        if ( !isPasswordValid ) {
+          console.log(`Incorrect password`);
+          // find a way to return using nextjs
+        }
         if ( isPasswordValid ) {
             console.log("Successful user authentication. ")
             // create session
@@ -71,8 +78,9 @@ export async function signUp (formData: FormData ) {
         const { rows } = await client.query(`SELECT * FROM users WHERE email = $1`, [user.email])
         if ( rows.length > 0 ) {
           return "User already exists"
-        }
-            const hashedPassword = await argon2.hash(user.password as string);
+        } 
+            const hashedPassword = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(user.password as string)))).map(byte => byte.toString(16).padStart(2,'0')).join('');
+            console.log(`Hashed Password is ${hashedPassword}`)
             const result = await client.query(`INSERT INTO users (email, hashedPassword) VALUES ($1, $2)`, [user.email, hashedPassword])
             const userId = result.rows[0].id;
             const expires = new Date(Date.now() + SESSION_EXPIRATION )
@@ -86,22 +94,65 @@ export async function signUp (formData: FormData ) {
     }
 }
 
-// export async function createPayment ( payment: number ) {
-//     try {
-//         // put the user id inside the jwt, then decode it later
-//         const session = await getSession();
-//         const userId = decrypt(session);
-//         const client = await pool.connect()
-//         const { rows } = await client.query(`SELECT * FROM users WHERE id = $1`, [userId])
-//         if ( rows.length === 0 ) {
-//           return "User not found"
-//         }
-//         await client.query(`INSERT INTO payments (user_id, amount, date) VALUES ($1, $2, $3)`, [userId, payment, new Date()])
-//     }
-//     catch ( error ) {
-//         throw error;
-//     }
-// }
+export async function createPayment ( payment: number ) {
+     try {
+         // put the user id inside the jwt, then decode it later
+         const session = await getSession();
+         const userId = decrypt(session);
+         // avoid broke people
+         if ( payment <= 0 ) {
+           return "Please add more money"
+         }
+         const client = await pool.connect()
+         const { rows } = await client.query(`SELECT * FROM users WHERE id = $1`, [userId])
+         if ( rows.length === 0 ) {
+           return "User not found"
+         }
+         const result = await client.query(`INSERT INTO payments (user_id, amount, date) VALUES ($1, $2, $3) RETURNING id`, [userId, payment, new Date()])
+         if ( result ) {
+           console.log(`Successfully created payment`)
+           return {success: true, message: "Payment created successfully", paymentId: result.rows[0].id}
+         }
+         console.log("Payment creation failed")
+         return "Payment creation failed"
+     }
+     catch ( error ) {
+         throw error;
+     }
+}
+
+export async function fetchPayment ( userId: number ) {
+  try {
+      const client = await pool.connect()
+      const { rows } = await client.query(`SELECT * FROM payments WHERE user_id = $1 ORDER BY date DESC`, [userId]);
+      if ( rows.length === 0 ) {
+        return {message: "No payments for this user"}
+  }
+      return rows;
+  }
+  catch ( error ) {
+    console.log(`Error when fetching payments: ${error}`)
+    return `Error when fetching payments: ${error}`
+  }
+}
+
+export async function fetchMail (userId: number) {
+  try {
+    if  (!userId) return "Invalid session cookie"
+    const client = await pool.connect();
+    const { rows } = await client.query(`SELECT email FROM users WHERE id = $1`, [userId])
+    if ( rows.length === 0 ) return "Seems you do not exist"
+    const userMail = rows[0].email
+    console.log(`User email is ${userMail}`)
+    if ( userMail ) {
+      return userMail
+    }
+    return "Failed operation"
+  }
+  catch ( error ) {
+    console.log(`Error when fetching mail: ${error}`)
+  }
+}
 
 export async function logOut () {
     // terminate the session
@@ -111,7 +162,10 @@ export async function logOut () {
 export async function getSession () {
     const session = cookies().get('session')?.value;
     if ( !session ) return null;
-    return await decrypt(session);
+    // session is decrypted but i only need the user id
+    const decryptedSession = await decrypt(session)
+    console.log(`The user id is ${decryptedSession.userId}`)
+    return decryptedSession.userId 
 }
 
 
