@@ -4,15 +4,13 @@ import {
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
-import { redirect } from 'next/navigation';
 import { signUp } from '@/lib/actions';
+import { useFormStatus, useFormState } from 'react-dom';
 
 export default function SignUpForm() {
+  const [errorMesssage, dispatch] = useFormState(signUp, undefined)
   return (
-    <form action={async (formData) => {
-      await signUp(formData);
-      redirect('/dashboard')
-    }}
+    <form action={dispatch}
     className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`mb-3 text-2xl`}>
@@ -66,12 +64,17 @@ export default function SignUpForm() {
         aria-atomic='true'
         >
         </div>
+        {errorMesssage && <>
+            <p className='text-red-500 font-bold'>{errorMesssage}</p>
+            <ExclamationCircleIcon className='h-5 w-5 text-red-500 ' />
+          </>}
       </div>
     </form>
   );
 }
 
 function SignUpButton() {
+  const { pending } = useFormStatus();
   return (
     <button type="submit" className="mt-4 bg-green-700 w-full text-white rounded-lg py-3 hover:bg-green-600">
       Sign up <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50 inline" />

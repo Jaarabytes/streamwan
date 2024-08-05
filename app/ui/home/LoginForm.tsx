@@ -1,13 +1,13 @@
-import { AtSymbolIcon, KeyIcon } from '@heroicons/react/24/outline';
+import { AtSymbolIcon, ExclamationCircleIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { login } from '@/lib/actions';
+import { useFormState, useFormStatus } from 'react-dom';
 
 export default async function LoginForm() {
+  const [ errorMessage, login ] = useFormState(dispatch, undefined);
   return (
     <form 
-    action={async (formData) => {
-      await login(formData)
-    }}
+    action={dispatch}
     className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`mb-3 text-2xl`}>
@@ -60,6 +60,10 @@ export default async function LoginForm() {
         aria-live='polite'
         aria-atomic='true'
         >
+        {errorMessage && <>
+          <ExclamationCircleIcon className='text-red-500 h-5 w-5' />
+          <p className='text-red-500 font-bold'>{errorMessage}</p>
+          </>}
         </div>
       </div>
     </form>
@@ -67,6 +71,7 @@ export default async function LoginForm() {
 }
 
 function LoginButton() {
+  const { pending } = useFormStatus();
   return (
     <button type="submit" className="mt-4 bg-green-700 w-full text-white rounded-lg py-3 hover:bg-green-600">
       Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50 inline" />

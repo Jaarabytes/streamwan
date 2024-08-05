@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import pool from "./db";
 import { jwtVerify, JWTPayload as JoseJWTPayload, SignJWT } from "jose";
 import { redirect } from 'next/navigation'
+import { revalidatePath } from "next/cache";
 
 interface CustomJWTPayload extends JoseJWTPayload {
   expires: string | Date;
@@ -33,7 +34,7 @@ export async function decrypt(input: string): Promise<CustomJWTPayload> {
   return payload as CustomJWTPayload;
 }
 
-export async function login (formData: FormData ) {
+export async function login ( prevState: undefined | string, formData: FormData ) {
     try {
         const user = { email: formData.get('email'), password: formData.get('password')}
         const client = await pool.connect();
@@ -73,7 +74,7 @@ export async function login (formData: FormData ) {
     }
 }
 
-export async function signUp (formData: FormData ) {
+export async function signUp ( prevState: string | undefined, formData: FormData ) {
     try {
         // look up user in db
         const user = { email: formData.get('email'), password: formData.get('password')}
@@ -119,6 +120,7 @@ export async function createPayment ( payment: number ) {
            return {success: true, message: "Payment created successfully", paymentId: result.rows[0].id}
          }
          console.log("Payment creation failed")
+         revalidatePath('/dashboard')
          return "Payment creation failed"
      }
      catch ( error ) {
