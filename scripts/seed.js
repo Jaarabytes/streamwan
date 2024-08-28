@@ -36,9 +36,9 @@ async function seedPayments ( client ) {
     try { 
         const createTable = `CREATE TABLE IF NOT EXISTS payments (
             id SERIAL PRIMARY KEY,
-            user_id INTEGER REFERENCES users(id) NOT NULL,
+            user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
             amount DECIMAL(10, 2) NOT NULL,
-            date DATE NOT NULL )`
+            date DATE NOT NULL);`
         await client.query(createTable)
         console.log(`Successfully created the Payments table`)
 
@@ -47,10 +47,10 @@ async function seedPayments ( client ) {
         VALUES ($1, $2, $3);
     `;
 
-        await client.query(query, ['987649370104168449', 10000.0, '2024-07-14'])
-        await client.query(query, ['987649370104168449', 3500.0, '2012-03-19'])
-        await client.query(query, ['987649371996225537', 100.0, '2014-03-14'])
-        await client.query(query, ['987649371996225537', 10000.0, '2020-12-12'])       
+        await client.query(query, ['998626606511095809', 10000.0, '2024-07-14'])
+        await client.query(query, ['998626607192834049', 3500.0, '2012-03-19'])
+        await client.query(query, ['998626607192834049', 100.0, '2014-03-14'])
+        await client.query(query, ['998626606511095809', 10000.0, '2020-12-12'])       
 
         console.log(`Successfully seeded the Payments table`)        
     }
