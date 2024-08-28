@@ -8,12 +8,12 @@ We are committed to uptime, same-day installation, exemplary customer service an
 To reach us:
 * [our website](https://streamwan.vercel.app)
 * [contact page](https://streamwan.vercel.app/contact)
-* [donations](https://streamwan.vercel.app/donate)
+
+## Development
 
 ## Installation 
 
 Prerequisites:
-- Pnpm installed
 - API keys, (they are clearly defined in the `.env.example` file)
 
 After obtaining the various keys, You can run:
