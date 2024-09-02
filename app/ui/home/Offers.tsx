@@ -58,12 +58,12 @@ export default function Offers() {
           <ul key={elem.name} className="h-80">
             {elem.qualities.map((element, index) => (
                 <>
-                <li key={index} className="p-3">{element}</li>
+                <li key={index} className="text-black p-3">{element}</li>
               </>
             ))}
           </ul>
           <hr />
-          <p className="my-5 px-3 text-lg"><b>{elem.price}</b> KES per month</p>
+          <p className="my-5 px-3 text-black text-lg"><b>{elem.price}</b> KES per month</p>
           <hr className="my-5" />
           <a href="/sign_up"> 
           <button

@@ -11,7 +11,7 @@ export default async function PaymentsPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Your Payment History</h2>
+      <h2 className="text-2xl text-black font-bold mb-4">Your Payment History</h2>
       { !payments || payments.length == 0 ? (
             <div className="divide-y divide-gray-200">
             <p className="text-red-600 text-lg font-extrabold">Sorry, it seems you have zero payments</p>

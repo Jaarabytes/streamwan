@@ -14,7 +14,7 @@ export default function Navbar(){
         <nav className={`p-4 flex justify-between items-center sticky top-0 shadow-lg z-50 bg-slate-200`}>
 
             <Link href={`/`}>
-              <button className="inline-flex items-center text-lg font-bold"
+              <button className="inline-flex items-center text-lg font-bold text-black"
               >Streamwan
               </button>
             </Link>
@@ -30,7 +30,7 @@ export default function Navbar(){
 
             <ul className={`list-none p-0 sm:flex hidden`}>
                 {navItems.map((elem, index) => (
-                    <button key={index} className="block rounded-full ml-4 p-3 hover:bg-slate-300 transition duration:500"><Link href={elem.link} className="text-lg">
+                    <button key={index} className="block rounded-full ml-4 p-3 text-black hover:bg-slate-300 transition duration:500"><Link href={elem.link} className="text-lg">
                     {elem.name}    
                     </Link></button>
                 ))}

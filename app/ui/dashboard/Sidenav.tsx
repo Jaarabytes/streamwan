@@ -12,7 +12,6 @@ export default async function Sidenav () {
           icon: DocumentDuplicateIcon,
         },
         { name: 'Profile', href: '/dashboard/profile', icon: UserGroupIcon},
-        { name: "Donate", href: '/dashboard/donate', icon: GiftIcon }
       ];
     return (
         <>
@@ -29,8 +28,8 @@ export default async function Sidenav () {
                             href={link.href}
                             className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-green-900 hover:text-white md:flex-none md:justify-start md:p-2 md:px-3"
                         >
-                            <LinkIcon className='h-6 w-6 inline' />
-                            <p className="hidden md:block">{link.name}</p>
+                            <LinkIcon className='h-6 w-6 inline text-black' />
+                            <p className="hidden md:block text-black">{link.name}</p>
                         </Link>
                         );
                     })}
