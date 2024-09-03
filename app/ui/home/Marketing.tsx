@@ -36,7 +36,7 @@ export default function Marketing () {
               <div className="w-full sm:w-1/2 mb-8 sm:mb-0 sm:pl-8">
                 <h2 className="text-3xl sm:text-4xl text-green-900 font-extrabold mb-4 animate-fade-in-right">Cooperative Customer Care</h2>
                 <p className="text-lg sm:text-xl text-green-800 mb-6 animate-fade-in-right delay-200">
-                  Don't settle for less. StreamWan services provide excellent support before, during, and after installation.
+                  Don&apost settle for less. StreamWan services provide excellent support before, during, and after installation.
                   We take full responsibility for problems encountered along the way.
                 </p>
                 <a href="/sign_up" className="inline-block">
